@@ -4,70 +4,159 @@
 
 package frc.robot;
 
+import com.ctre.phoenixpro.configs.Slot0Configs;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.util.Color8Bit;
+import frc.robot.CTRSwerve.CANdleConstants;
+import frc.robot.CTRSwerve.CANdleManager;
+import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
+import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
+import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
+import frc.robot.CTRSwerve.SwerveModuleConstants;
 
+/**
+ * The VM is configured to automatically run this class, and to call the functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the name of this class or
+ * the package after creating this project, you must also update the build.gradle file in the
+ * project.
+ */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+    SwerveDriveTrainConstants drivetrain =
+            new SwerveDriveTrainConstants().withPigeon2Id(1).withCANbusName("canivore").withTurnKp(5);
 
-  @Override
-  public void robotInit() {
-    m_robotContainer = new RobotContainer();
-  }
+    Slot0Configs steerGains = new Slot0Configs();
+    Slot0Configs driveGains = new Slot0Configs();
 
-  @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-  }
-
-  @Override
-  public void disabledInit() {}
-
-  @Override
-  public void disabledPeriodic() {}
-
-  @Override
-  public void disabledExit() {}
-
-  @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    {
+        steerGains.kP = 30;
+        steerGains.kD = 0.2;
+        driveGains.kP = 1;
     }
-  }
 
-  @Override
-  public void autonomousPeriodic() {}
+    SwerveDriveConstantsCreator m_constantsCreator =
+            new SwerveDriveConstantsCreator(10, 12.8, 3, 17, steerGains, driveGains);
 
-  @Override
-  public void autonomousExit() {}
+    /**
+     * Note: WPI's coordinate system is X forward, Y to the left so make sure all locations are with
+     * respect to this coordinate system
+     *
+     * <p>This particular drive base is 22" x 22"
+     */
+    SwerveModuleConstants frontRight =
+            m_constantsCreator.createModuleConstants(
+                    13, 11, 12, -0.066650390625, Units.inchesToMeters(21.4 / 2.0), Units.inchesToMeters(-21.4 / 2.0));
 
-  @Override
-  public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    SwerveModuleConstants frontLeft =
+            m_constantsCreator.createModuleConstants(
+                    43, 41, 42, -0.752685546875, Units.inchesToMeters(21.4 / 2.0), Units.inchesToMeters(21.4 / 2.0));
+    SwerveModuleConstants backRight =
+            m_constantsCreator.createModuleConstants(
+                    23, 21, 22, -0.771484375, Units.inchesToMeters(-21.4 / 2.0), Units.inchesToMeters(-21.4 / 2.0));
+    SwerveModuleConstants backLeft =
+            m_constantsCreator.createModuleConstants(
+                    33, 31, 32, -0.96240234375, Units.inchesToMeters(-21.4 / 2.0), Units.inchesToMeters(21.4 / 2.0));
+
+    CTRSwerveDrivetrain m_drivetrain =
+            new CTRSwerveDrivetrain(drivetrain, frontLeft, frontRight, backLeft, backRight);
+
+    XboxController m_joystick = new XboxController(0);
+
+    CANdleConstants frontCandle = new CANdleConstants().withId(2).withLocationX(1).withLocationY(0);
+    CANdleConstants rightCandle = new CANdleConstants().withId(1).withLocationX(0).withLocationY(-1);
+    CANdleConstants leftCandle = new CANdleConstants().withId(4).withLocationX(0).withLocationY(1);
+    CANdleConstants backCandle = new CANdleConstants().withId(3).withLocationX(-1).withLocationY(0);
+    Color8Bit posX = new Color8Bit(0, 0, 255);
+    Color8Bit posY = new Color8Bit(255, 0, 0);
+    Color8Bit negX = new Color8Bit(255, 255, 255);
+    Color8Bit negY = new Color8Bit(0, 255, 0);
+    CANdleManager m_candleManager =
+            new CANdleManager(
+                    "canivore", posY, posX, negY, negX, frontCandle, leftCandle, rightCandle, backCandle);
+    Rotation2d m_lastTargetAngle = new Rotation2d();
+
+    /**
+     * This function is run when the robot is first started up and should be used for any
+     * initialization code.
+     */
+    @Override
+    public void robotInit() {}
+
+    @Override
+    public void robotPeriodic() {
+        double leftY = -m_joystick.getLeftY();
+        double leftX = m_joystick.getLeftX();
+        double rightX = m_joystick.getRightX();
+        double rightY = -m_joystick.getRightY();
+
+        if (Math.abs(leftY) < 0.1 && Math.abs(leftX) < 0.1) {
+            leftY = 0;
+            leftX = 0;
+        }
+        if (Math.abs(rightX) < 0.1 && Math.abs(rightY) < 0.1) {
+            rightX = 0;
+            rightY = 0;
+        }
+
+        var directions = new ChassisSpeeds();
+        directions.vxMetersPerSecond = leftY * 1;
+        directions.vyMetersPerSecond = leftX * -1;
+        directions.omegaRadiansPerSecond = rightX * -2;
+
+        /* If we're pressing Y, don't move, otherwise do normal movement */
+        if (m_joystick.getYButton()) {
+            m_drivetrain.driveStopMotion();
+        } else {
+            /* If we're fully field centric, we need to be pretty deflected to target an angle */
+            if (Math.abs(rightX) > 0.7 || Math.abs(rightY) > 0.7) {
+                m_lastTargetAngle = new Rotation2d(rightY, -rightX);
+            }
+            m_drivetrain.driveFullyFieldCentric(leftY * 1, leftX * -1, m_lastTargetAngle);
+        }
+
+        if (m_joystick.getAButton()) {
+            m_drivetrain.seedFieldRelative();
+            // Make us target forward now to avoid jumps
+            m_lastTargetAngle = new Rotation2d();
+        }
+
+        m_candleManager.orient(m_drivetrain.getPoseMeters().getRotation());
+        m_candleManager.color();
     }
-  }
 
-  @Override
-  public void teleopPeriodic() {}
+    @Override
+    public void autonomousInit() {}
 
-  @Override
-  public void teleopExit() {}
+    @Override
+    public void autonomousPeriodic() {}
 
-  @Override
-  public void testInit() {
-    CommandScheduler.getInstance().cancelAll();
-  }
+    @Override
+    public void teleopInit() {
+        m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
+    }
 
-  @Override
-  public void testPeriodic() {}
+    @Override
+    public void teleopPeriodic() {}
 
-  @Override
-  public void testExit() {}
+    @Override
+    public void disabledInit() {}
+
+    @Override
+    public void disabledPeriodic() {}
+
+    @Override
+    public void testInit() {}
+
+    @Override
+    public void testPeriodic() {}
+
+    @Override
+    public void simulationInit() {}
+
+    @Override
+    public void simulationPeriodic() {}
 }
