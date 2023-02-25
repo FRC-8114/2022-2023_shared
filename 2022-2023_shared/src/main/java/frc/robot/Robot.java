@@ -4,11 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ArmSystem;
 
 public class Robot extends TimedRobot {
+  public static CTREConfigs ctreConfigs;
+  public SwerveDriveOdometry swerveOdometry;
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -16,11 +22,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    //ArmSystem.ArmDeployerDown(-.1);
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    
   }
 
   @Override
@@ -55,7 +63,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    m_robotContainer.periodic();
+  }
 
   @Override
   public void teleopExit() {}
