@@ -114,6 +114,8 @@ public class Robot extends TimedRobot {
             /* If we're fully field centric, we need to be pretty deflected to target an angle */
             if (Math.abs(rightX) > 0.7 || Math.abs(rightY) > 0.7) {
                 m_lastTargetAngle = new Rotation2d(rightY, -rightX);
+            } else {
+                m_lastTargetAngle = new Rotation2d();
             }
             m_drivetrain.driveFullyFieldCentric(leftY * 1, leftX * -1, m_lastTargetAngle);
         }
