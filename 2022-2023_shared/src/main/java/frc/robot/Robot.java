@@ -11,8 +11,6 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.util.Color8Bit;
-import frc.robot.CTRSwerve.CANdleConstants;
-import frc.robot.CTRSwerve.CANdleManager;
 import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
 import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
 import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
@@ -66,17 +64,11 @@ public class Robot extends TimedRobot {
 
     XboxController m_joystick = new XboxController(0);
 
-    CANdleConstants frontCandle = new CANdleConstants().withId(2).withLocationX(1).withLocationY(0);
-    CANdleConstants rightCandle = new CANdleConstants().withId(1).withLocationX(0).withLocationY(-1);
-    CANdleConstants leftCandle = new CANdleConstants().withId(4).withLocationX(0).withLocationY(1);
-    CANdleConstants backCandle = new CANdleConstants().withId(3).withLocationX(-1).withLocationY(0);
+  
     Color8Bit posX = new Color8Bit(0, 0, 255);
     Color8Bit posY = new Color8Bit(255, 0, 0);
     Color8Bit negX = new Color8Bit(255, 255, 255);
     Color8Bit negY = new Color8Bit(0, 255, 0);
-    CANdleManager m_candleManager =
-            new CANdleManager(
-                    "canivore", posY, posX, negY, negX, frontCandle, leftCandle, rightCandle, backCandle);
     Rotation2d m_lastTargetAngle = new Rotation2d();
 
     /**
@@ -126,8 +118,7 @@ public class Robot extends TimedRobot {
             m_lastTargetAngle = new Rotation2d();
         }
 
-        m_candleManager.orient(m_drivetrain.getPoseMeters().getRotation());
-        m_candleManager.color();
+      
     }
 
     @Override
