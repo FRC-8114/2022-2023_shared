@@ -25,7 +25,7 @@ import frc.robot.CTRSwerve.SwerveModuleConstants;
 public class Robot extends TimedRobot {
 
     SwerveDriveTrainConstants drivetrain =
-            new SwerveDriveTrainConstants().withPigeon2Id(1).withCANbusName("canivore").withTurnKp(5);
+            new SwerveDriveTrainConstants().withPigeon2Id(5).withCANbusName("canivore").withTurnKp(5);
 
     Slot0Configs steerGains = new Slot0Configs();
     Slot0Configs driveGains = new Slot0Configs();
