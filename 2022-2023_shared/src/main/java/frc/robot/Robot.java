@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
             m_drivetrain.driveFullyFieldCentric(leftY * 1, leftX * -1, m_lastTargetAngle);
         }
 
-        if (m_joystick.getAButton()) {
+        if (m_joystick.getRightBumper()) {
             m_drivetrain.seedFieldRelative();
             // Make us target forward now to avoid jumps
             m_lastTargetAngle = new Rotation2d();
