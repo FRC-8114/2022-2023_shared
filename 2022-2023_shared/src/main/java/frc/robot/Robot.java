@@ -10,7 +10,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
 import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
 import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
@@ -48,7 +47,6 @@ public class Robot extends TimedRobot {
     SwerveModuleConstants frontRight =
             m_constantsCreator.createModuleConstants(
                     13, 11, 12, -0.066650390625, Units.inchesToMeters(21.4 / 2.0), Units.inchesToMeters(-21.4 / 2.0));
-
     SwerveModuleConstants frontLeft =
             m_constantsCreator.createModuleConstants(
                     43, 41, 42, -0.752685546875, Units.inchesToMeters(21.4 / 2.0), Units.inchesToMeters(21.4 / 2.0));
@@ -65,10 +63,7 @@ public class Robot extends TimedRobot {
     XboxController m_joystick = new XboxController(0);
 
   
-    Color8Bit posX = new Color8Bit(0, 0, 255);
-    Color8Bit posY = new Color8Bit(255, 0, 0);
-    Color8Bit negX = new Color8Bit(255, 255, 255);
-    Color8Bit negY = new Color8Bit(0, 255, 0);
+    
     Rotation2d m_lastTargetAngle = new Rotation2d();
 
     /**
