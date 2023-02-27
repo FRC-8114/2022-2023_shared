@@ -95,8 +95,8 @@ public class Robot extends TimedRobot {
         }
 
         var directions = new ChassisSpeeds();
-        directions.vxMetersPerSecond = leftY * 3;
-        directions.vyMetersPerSecond = leftX * -3;
+        directions.vxMetersPerSecond = leftY * 1;
+        directions.vyMetersPerSecond = leftX * -1;
         directions.omegaRadiansPerSecond = rightX * -5;
         
 
