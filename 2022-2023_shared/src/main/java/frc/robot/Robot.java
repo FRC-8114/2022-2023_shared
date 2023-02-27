@@ -95,9 +95,10 @@ public class Robot extends TimedRobot {
         }
 
         var directions = new ChassisSpeeds();
-        directions.vxMetersPerSecond = leftY * 1;
-        directions.vyMetersPerSecond = leftX * -1;
-        directions.omegaRadiansPerSecond = rightX * -2;
+        directions.vxMetersPerSecond = leftY * 3;
+        directions.vyMetersPerSecond = leftX * -3;
+        directions.omegaRadiansPerSecond = rightX * -5;
+        
 
         /* If we're pressing Y, don't move, otherwise do normal movement */
         if (m_joystick.getYButton()) {
@@ -109,7 +110,7 @@ public class Robot extends TimedRobot {
             } else {
                 m_lastTargetAngle = new Rotation2d();
             }
-            m_drivetrain.driveFullyFieldCentric(leftY * 1, leftX * -1, m_lastTargetAngle);
+            m_drivetrain.driveFieldCentric(directions );
         }
 
         if (m_joystick.getRightBumper()) {
