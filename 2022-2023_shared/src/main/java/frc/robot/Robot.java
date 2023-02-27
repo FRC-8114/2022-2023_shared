@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
         var directions = new ChassisSpeeds();
         directions.vxMetersPerSecond = leftY * 1;
         directions.vyMetersPerSecond = leftX * -1;
-        directions.omegaRadiansPerSecond = rightX * -5;
+        directions.omegaRadiansPerSecond = rightX * -4;
         
 
         /* If we're pressing Y, don't move, otherwise do normal movement */
