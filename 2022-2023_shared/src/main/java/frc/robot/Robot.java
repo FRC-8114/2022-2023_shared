@@ -22,7 +22,6 @@ import frc.robot.CTRSwerve.SwerveModuleConstants;
  * project.
  */
 public class Robot extends TimedRobot {
-    private RobotContainer m_robotContainer;
 
     SwerveDriveTrainConstants drivetrain =
             new SwerveDriveTrainConstants().withPigeon2Id(5).withCANbusName("canivore").withTurnKp(5);
@@ -72,9 +71,7 @@ public class Robot extends TimedRobot {
      * initialization code.
      */
     @Override
-    public void robotInit() {
-        m_robotContainer = new RobotContainer();
-    }
+    public void robotInit() {}
 
     @Override
     public void robotPeriodic() {
