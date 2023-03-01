@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-import javax.swing.text.Position;
 
 import com.ctre.phoenixpro.configs.Slot0Configs;
 import edu.wpi.first.math.geometry.Rotation2d;
