@@ -9,11 +9,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ArmSystem;
 
 public class Robot extends TimedRobot {
-  public static CTREConfigs ctreConfigs;
-  public SwerveDriveOdometry swerveOdometry;
 
   private Command m_autonomousCommand;
 
