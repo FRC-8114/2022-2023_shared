@@ -10,6 +10,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
 import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
 import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
@@ -22,6 +24,9 @@ import frc.robot.CTRSwerve.SwerveModuleConstants;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  private RobotContainer m_robotContainer;
+  private Command m_autonomousCommand;
 
     SwerveDriveTrainConstants drivetrain =
             new SwerveDriveTrainConstants().withPigeon2Id(5).withCANbusName("canivore").withTurnKp(5);
@@ -71,10 +76,15 @@ public class Robot extends TimedRobot {
      * initialization code.
      */
     @Override
-    public void robotInit() {}
+    public void robotInit() {
+      m_robotContainer = new RobotContainer();
+
+    }
 
     @Override
     public void robotPeriodic() {
+        CommandScheduler.getInstance().run();
+        
         double leftY = -m_joystick.getLeftY();
         double leftX = m_joystick.getLeftX();
         double rightX = m_joystick.getRightX();
@@ -118,18 +128,31 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousInit() {}
+    public void autonomousInit() {
+      m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+      if (m_autonomousCommand != null) {
+        m_autonomousCommand.schedule();
+      }
+
+    }
 
     @Override
     public void autonomousPeriodic() {}
 
     @Override
     public void teleopInit() {
-        m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
+      if (m_autonomousCommand != null) {
+        m_autonomousCommand.cancel();
+      }
+      m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
     }
 
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+      m_robotContainer.periodic();
+
+    }
 
     @Override
     public void disabledInit() {}
@@ -138,7 +161,10 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic() {}
 
     @Override
-    public void testInit() {}
+    public void testInit() {
+      CommandScheduler.getInstance().cancelAll();
+
+    }
 
     @Override
     public void testPeriodic() {}
