@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
 
         if (m_joystick.getRightTriggerAxis() != 0)
         {
-                Claw.SetNeo(m_joystick.getRightTriggerAxis());
+                Claw.SetNeo(Constants.TeleOp.CLAW_RUN_SPEED);
             
         }
         else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {
@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
 
         if (m_joystick.getLeftTriggerAxis() != 0)
         {
-            Claw.SetNeo(-(m_joystick.getLeftTriggerAxis()));
+            Claw.SetNeo(Constants.TeleOp.REVERSE_CLAW_SPEED);
 
         }
         else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {
