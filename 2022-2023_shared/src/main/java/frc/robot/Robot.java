@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
+  private boolean turtleToggle = false;
 
     SwerveDriveTrainConstants drivetrain =
             new SwerveDriveTrainConstants().withPigeon2Id(5).withCANbusName("canivore").withTurnKp(5);
@@ -99,11 +100,23 @@ public class Robot extends TimedRobot {
             rightX = 0;
             rightY = 0;
         }
+        if (m_joystick.getStartButtonPressed()) {
+            turtleToggle = !turtleToggle;
+        }
+
 
         var directions = new ChassisSpeeds();
+
+        if (!turtleToggle) {
         directions.vxMetersPerSecond = leftY * 1;
         directions.vyMetersPerSecond = leftX * -1;
         directions.omegaRadiansPerSecond = rightX * -4;
+        }
+        else if (turtleToggle) {
+        directions.vxMetersPerSecond = leftY * (1 * 0.25);
+        directions.vyMetersPerSecond = leftX * (-1 * 0.25);
+        directions.omegaRadiansPerSecond = rightX * (-4 * 0.25);
+        }
         
 
         /* If we're pressing Y, don't move, otherwise do normal movement */
@@ -130,12 +143,18 @@ public class Robot extends TimedRobot {
                 Claw.SetNeo(m_joystick.getRightTriggerAxis());
             
         }
+        else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {
+            Claw.SetNeo(0.0);
+        }
         
 
         if (m_joystick.getLeftTriggerAxis() != 0)
         {
             Claw.SetNeo(-(m_joystick.getLeftTriggerAxis()));
 
+        }
+        else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {
+            Claw.SetNeo(0.0);
         }
 
       
