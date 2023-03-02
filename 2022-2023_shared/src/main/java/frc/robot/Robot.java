@@ -16,6 +16,7 @@ import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
 import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
 import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
 import frc.robot.CTRSwerve.SwerveModuleConstants;
+import frc.robot.subsystems.Claw;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -122,6 +123,19 @@ public class Robot extends TimedRobot {
             m_drivetrain.seedFieldRelative();
             // Make us target forward now to avoid jumps
             m_lastTargetAngle = new Rotation2d();
+        }
+
+        if (m_joystick.getRightTriggerAxis() != 0)
+        {
+                Claw.SetNeo(m_joystick.getRightTriggerAxis());
+            
+        }
+        
+
+        if (m_joystick.getLeftTriggerAxis() != 0)
+        {
+            Claw.SetNeo(-(m_joystick.getLeftTriggerAxis()));
+
         }
 
       

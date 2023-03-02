@@ -19,6 +19,7 @@ import com.ctre.phoenixpro.controls.CoastOut;
 import com.ctre.phoenixpro.controls.NeutralOut;
 //import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenixpro.hardware.TalonFX;
+import com.ctre.phoenixpro.signals.NeutralModeValue;
 
 public class ArmSystem extends SubsystemBase {
     // Creates the motor controllers for the dart and the arm
@@ -37,6 +38,7 @@ public class ArmSystem extends SubsystemBase {
     public ArmSystem() {
 
         // set to factory default and idle so we know what we're working with
+        TalonConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         ArmRunController.getConfigurator().apply(TalonConfig);
         ArmRunController.setInverted(Constants.ArmConstants.ARM_DEPLOY_INVERSED);
         ArmRunController.setControl(neutralMode);
