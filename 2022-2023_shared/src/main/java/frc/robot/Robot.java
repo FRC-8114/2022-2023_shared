@@ -29,6 +29,8 @@ public class Robot extends TimedRobot {
     Slot0Configs steerGains = new Slot0Configs();
     Slot0Configs driveGains = new Slot0Configs();
 
+    public boolean turtleToggle = false;
+
     {
         steerGains.kP = 30;
         steerGains.kD = 0.2;
@@ -89,10 +91,23 @@ public class Robot extends TimedRobot {
             rightY = 0;
         }
 
+        if (m_joystick.getStartButtonPressed()) {
+            turtleToggle = !turtleToggle;
+        }
+
+
         var directions = new ChassisSpeeds();
+
+        if (!turtleToggle) {
         directions.vxMetersPerSecond = leftY * 1;
         directions.vyMetersPerSecond = leftX * -1;
         directions.omegaRadiansPerSecond = rightX * -4;
+        }
+        else if (turtleToggle) {
+        directions.vxMetersPerSecond = leftY * (1 * 0.25);
+        directions.vyMetersPerSecond = leftX * (-1 * 0.25);
+        directions.omegaRadiansPerSecond = rightX * (-4 * 0.25);
+        }
         
 
         /* If we're pressing Y, don't move, otherwise do normal movement */
@@ -105,7 +120,7 @@ public class Robot extends TimedRobot {
             } else {
                 m_lastTargetAngle = new Rotation2d();
             }
-            m_drivetrain.driveFieldCentric(directions );
+            m_drivetrain.driveFieldCentric(directions);
         }
 
         if (m_joystick.getRightBumper()) {
@@ -113,6 +128,7 @@ public class Robot extends TimedRobot {
             // Make us target forward now to avoid jumps
             m_lastTargetAngle = new Rotation2d();
         }
+
 
       
     }
