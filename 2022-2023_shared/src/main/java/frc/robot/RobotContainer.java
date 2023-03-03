@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -11,14 +12,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
+import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
+import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
 import frc.robot.Constants.TeleOp;
 import frc.robot.subsystems.ArmSystem;
+import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.DriveSystem;
 
 
 public class RobotContainer {
+  public static SwerveDriveTrainConstants drivetrain = DriveSystem.drivetrain;
+  static Rotation2d m_lastTargetAngle = new Rotation2d();
   ArmSystem armSystem = new ArmSystem();
   public XboxController controller = new XboxController(0);
+
+  public static XboxController m_joystick = new XboxController(0);
+  public static double leftY, leftX, rightY, rightX;
   private int oldLeftTriggerAxis, oldRightTriggerAxis, oldPOV;
+
+  CTRSwerveDrivetrain m_drivetrain =
+    new CTRSwerveDrivetrain(drivetrain, DriveSystem.frontLeft, DriveSystem.frontRight, DriveSystem.backLeft, DriveSystem.backRight);
 
   public static double ArmRunnerRunSpeed = TeleOp.ARM_RUNNER_INITIAL_RUN_SPEED;
   public static double ArmRunnerReverseSpeed = TeleOp.ARM_RUNNER_INITIAL_REVERSE_SPEED;
@@ -43,6 +57,12 @@ public class RobotContainer {
   }
 
   public void periodic() {
+    leftX = m_joystick.getLeftX();
+    leftY = -m_joystick.getLeftY();
+    rightX = m_joystick.getRightX();
+    rightY = -m_joystick.getRightY();
+
+    
     switch (controller.getPOV()) {
       case 0: // UP
         ArmSystem.ArmRunnerUp(ArmRunnerRunSpeed);
@@ -63,6 +83,33 @@ public class RobotContainer {
         }
       }
       oldPOV = ((int)controller.getPOV());
+
+      DriveSystem.fieldCentric();
+      
+    if (m_joystick.getRightBumper()) {
+        m_drivetrain.seedFieldRelative();
+        // Make us target forward now to avoid jumps
+        m_lastTargetAngle = new Rotation2d();
+    }
+
+    if (m_joystick.getRightTriggerAxis() != 0)
+    {
+            Claw.SetNeo(-Constants.TeleOp.CLAW_SPEED);
+        
+    }
+    else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {
+        Claw.SetNeo(0.0);
+    }
+    
+
+    if (m_joystick.getLeftTriggerAxis() != 0)
+    {
+        Claw.SetNeo(Constants.TeleOp.CLAW_SPEED);
+
+    }
+    else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {
+        Claw.SetNeo(0.0);
+    }
   }
 
     /**
