@@ -17,6 +17,7 @@ import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
 import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
 import frc.robot.CTRSwerve.SwerveModuleConstants;
 import frc.robot.subsystems.Claw;
+import frc.robot.Constants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -113,9 +114,9 @@ public class Robot extends TimedRobot {
         directions.omegaRadiansPerSecond = rightX * -4;
         }
         else if (turtleToggle) {
-        directions.vxMetersPerSecond = leftY * (1 * 0.25);
-        directions.vyMetersPerSecond = leftX * (-1 * 0.25);
-        directions.omegaRadiansPerSecond = rightX * (-4 * 0.25);
+        directions.vxMetersPerSecond = leftY * (1 * Constants.TeleOp.TURTLE_SPEED);
+        directions.vyMetersPerSecond = leftX * (-1 * Constants.TeleOp.TURTLE_SPEED);
+        directions.omegaRadiansPerSecond = rightX * (-4 * Constants.TeleOp.TURTLE_SPEED);
         }
         
 
@@ -140,7 +141,7 @@ public class Robot extends TimedRobot {
 
         if (m_joystick.getRightTriggerAxis() != 0)
         {
-                Claw.SetNeo(Constants.TeleOp.CLAW_RUN_SPEED);
+                Claw.SetNeo(-Constants.TeleOp.CLAW_SPEED);
             
         }
         else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {
@@ -150,7 +151,7 @@ public class Robot extends TimedRobot {
 
         if (m_joystick.getLeftTriggerAxis() != 0)
         {
-            Claw.SetNeo(Constants.TeleOp.REVERSE_CLAW_SPEED);
+            Claw.SetNeo(Constants.TeleOp.CLAW_SPEED);
 
         }
         else if (m_joystick.getRightTriggerAxis() == 0 && m_joystick.getLeftTriggerAxis() == 0) {

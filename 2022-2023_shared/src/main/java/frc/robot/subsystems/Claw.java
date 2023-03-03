@@ -22,7 +22,7 @@ public class Claw extends SubsystemBase {
   }
 public void configureNeoRight() {
   NeoRight.restoreFactoryDefaults();
-  NeoRight.setIdleMode(IdleMode.kCoast);
+  NeoRight.setIdleMode(IdleMode.kBrake);
   NeoRight.setInverted(true);
 }
 
