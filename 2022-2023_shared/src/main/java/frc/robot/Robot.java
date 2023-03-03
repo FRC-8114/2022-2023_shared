@@ -17,7 +17,6 @@ import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
 import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
 import frc.robot.CTRSwerve.SwerveModuleConstants;
 import frc.robot.subsystems.Claw;
-import frc.robot.Constants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
