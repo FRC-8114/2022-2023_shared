@@ -27,7 +27,6 @@ public void configureNeoRight() {
 }
 
 public static void SetNeo(double speed){
-  System.out.println("HI");
   NeoRight.set(speed);
 }
 }

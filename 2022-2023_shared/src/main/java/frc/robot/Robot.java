@@ -108,8 +108,8 @@ public class Robot extends TimedRobot {
         var directions = new ChassisSpeeds();
 
         if (!turtleToggle) {
-        directions.vxMetersPerSecond = leftY * 1;
-        directions.vyMetersPerSecond = leftX * -1;
+        directions.vxMetersPerSecond = leftY * 1.5;
+        directions.vyMetersPerSecond = leftX * -1.5;
         directions.omegaRadiansPerSecond = rightX * -4;
         }
         else if (turtleToggle) {
