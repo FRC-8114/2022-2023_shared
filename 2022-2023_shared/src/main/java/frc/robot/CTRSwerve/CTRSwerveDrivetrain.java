@@ -1,5 +1,7 @@
 package frc.robot.CTRSwerve;
 
+import java.util.function.DoubleSupplier;
+import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 import com.ctre.phoenixpro.BaseStatusSignalValue;
@@ -13,6 +15,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,7 +29,7 @@ public class CTRSwerveDrivetrain {
     private SwerveModulePosition[] m_modulePositions;
     private Translation2d[] m_moduleLocations;
     private OdometryThread m_odometryThread;
-    private Field2d m_field;
+    public Field2d m_field;
     private PIDController m_turnPid;
     public Supplier<Pose2d> PoseSupplier = () -> m_odometry.getPoseMeters();
 
@@ -35,6 +38,12 @@ public class CTRSwerveDrivetrain {
         private BaseStatusSignalValue[] m_allSignals;
         public int SuccessfulDaqs = 0;
         public int FailedDaqs = 0;
+        
+        public LongSupplier SucDaqs = () -> SuccessfulDaqs;
+        public LongSupplier FailDaqs = () -> FailedDaqs;
+        public DoubleSupplier PosX = () -> m_odometry.getPoseMeters().getX();
+        public DoubleSupplier PosY = () -> m_odometry.getPoseMeters().getY();
+        public DoubleSupplier Rotation = () -> m_odometry.getPoseMeters().getRotation().getDegrees();
 
         public OdometryThread() {
             super();
@@ -49,6 +58,11 @@ public class CTRSwerveDrivetrain {
             }
             m_allSignals[m_allSignals.length - 2] = m_pigeon2.getYaw();
             m_allSignals[m_allSignals.length - 1] = m_pigeon2.getAngularVelocityZ();
+            // Shuffleboard.getTab("Controls").addInteger("Successful Daqs", SucDaqs);
+            // Shuffleboard.getTab("Controls").addInteger("Failed Daqs", FailDaqs);
+            // Shuffleboard.getTab("Controls").addDouble("X Pos", PosX);
+            // Shuffleboard.getTab("Controls").addDouble("Y Pos", PosY);
+            // Shuffleboard.getTab("Controls").addDouble("Angle", Rotation);
         }
 
         public void run() {
@@ -75,12 +89,6 @@ public class CTRSwerveDrivetrain {
 
                 m_odometry.update(Rotation2d.fromDegrees(yawDegrees), m_modulePositions);
                 m_field.setRobotPose(m_odometry.getPoseMeters());
-
-                SmartDashboard.putNumber("Successful Daqs", SuccessfulDaqs);
-                SmartDashboard.putNumber("Failed Daqs", FailedDaqs);
-                SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
-                SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
-                SmartDashboard.putNumber("Angle", m_odometry.getPoseMeters().getRotation().getDegrees());
             }
         }
     }
@@ -107,7 +115,7 @@ public class CTRSwerveDrivetrain {
         m_odometry =
                 new SwerveDriveOdometry(m_kinematics, m_pigeon2.getRotation2d(), getSwervePositions());
         m_field = new Field2d();
-        SmartDashboard.putData("Field", m_field);
+        // Shuffleboard.getTab("Controls").add(m_field);
 
         m_turnPid = new PIDController(driveTrainConstants.TurnKp, 0, driveTrainConstants.TurnKd);
         m_turnPid.enableContinuousInput(-Math.PI, Math.PI);
@@ -175,7 +183,7 @@ public class CTRSwerveDrivetrain {
 
     public void resetOdometry(Pose2d pose) {
         m_odometry.resetPosition(m_odometry.getPoseMeters().getRotation(), m_modulePositions, pose);
-
+        m_pigeon2.setYaw(0);
     }
 
     public SwerveDriveKinematics getKinematics(){

@@ -31,7 +31,7 @@ public final class Constants {
         public static final double CLAW_SPEED = .3;
 
         //Turtle Constant
-        public static final double TURTLE_SPEED = .3;
+        public static double TURTLE_SPEED = .3;
 
       }
 

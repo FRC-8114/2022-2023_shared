@@ -15,6 +15,8 @@ import frc.robot.Constants.TeleOp;
 import frc.robot.subsystems.ArmSystem;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.shuffle;
+
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 
@@ -24,6 +26,7 @@ public class RobotContainer {
   public XboxController controller = new XboxController(0);
   private int oldLeftTriggerAxis, oldRightTriggerAxis, oldPOV;
   private DriveSystem m_DriveSystem = new DriveSystem();
+  shuffle shuffle1 = new shuffle();
 
   public static double ArmRunnerRunSpeed = TeleOp.ARM_RUNNER_INITIAL_RUN_SPEED;
   public static double ArmRunnerReverseSpeed = TeleOp.ARM_RUNNER_INITIAL_REVERSE_SPEED;

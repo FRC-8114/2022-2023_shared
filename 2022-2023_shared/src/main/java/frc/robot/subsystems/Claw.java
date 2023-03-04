@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Claw extends SubsystemBase {
   public static CANSparkMax NeoRight = new CANSparkMax(4,MotorType.kBrushless);
+  public static CANSparkMax NeoLeft = new CANSparkMax(5,MotorType.kBrushless);
   /** Creates a new Claw. */
   public Claw() {}
  
@@ -26,7 +27,14 @@ public void configureNeoRight() {
   NeoRight.setInverted(true);
 }
 
+public void configureNeoLeft() {
+  NeoRight.restoreFactoryDefaults();
+  NeoRight.setIdleMode(IdleMode.kBrake);
+  NeoRight.setInverted(false);
+}
+
 public static void SetNeo(double speed){
   NeoRight.set(speed);
+  NeoLeft.set(-speed);
 }
 }
