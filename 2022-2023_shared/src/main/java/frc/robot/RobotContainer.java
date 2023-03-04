@@ -15,6 +15,8 @@ import frc.robot.Constants.TeleOp;
 import frc.robot.subsystems.ArmSystem;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSystem;
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
 
 
 public class RobotContainer {
@@ -35,7 +37,7 @@ public class RobotContainer {
   private void configureBindings() {}
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("New Path", new PathConstraints(4, 3)), true );
   }
 
   public void initializeInstanceVariables() {
@@ -46,7 +48,7 @@ public class RobotContainer {
   }
 
   public void periodic() {
-    m_DriveSystem.periodic();
+    m_DriveSystem.teleopPeriodic();
     switch (controller.getPOV()) {
       case 0: // UP
         ArmSystem.ArmRunnerUp(ArmRunnerRunSpeed);

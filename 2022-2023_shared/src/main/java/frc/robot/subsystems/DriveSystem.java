@@ -1,17 +1,26 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenixpro.configs.Slot0Configs;
+import java.util.function.Consumer;
 
+import com.ctre.phoenixpro.configs.Slot0Configs;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.CTRSwerve.*;
 
 public class DriveSystem extends SubsystemBase {
-    
+
     private boolean turtleToggle = false;
 
     SwerveDriveTrainConstants drivetrain =
@@ -53,19 +62,46 @@ public class DriveSystem extends SubsystemBase {
 
     XboxController m_joystick = new XboxController(0);
 
-  
+    public Consumer<SwerveModuleState[]> setSwerveModule = states -> {
+        m_drivetrain.m_modules[0].apply(states[0]);
+        m_drivetrain.m_modules[1].apply(states[1]);
+        m_drivetrain.m_modules[2].apply(states[2]);
+        m_drivetrain.m_modules[3].apply(states[3]);
+    };
     
-    Rotation2d m_lastTargetAngle = new Rotation2d();
+    public static Rotation2d m_lastTargetAngle = new Rotation2d();
+
+    public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath) {
+        return new SequentialCommandGroup(
+             new InstantCommand(() -> {
+               // Reset odometry for the first path you run during auto
+               if(isFirstPath){
+                   m_drivetrain.resetOdometry(traj.getInitialHolonomicPose());
+               }
+             }),
+             new PPSwerveControllerCommand(
+                 traj, 
+                 m_drivetrain.PoseSupplier, // Pose supplier
+                 m_drivetrain.getKinematics(), // SwerveDriveKinematics
+                 new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+                 new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
+                 new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+                 setSwerveModule, // Module states consumer
+                 true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+                 this // Requires this drive subsystem
+             )
+         );
+     }
 
     public DriveSystem() {
-
+        
     }
 
     public void roboinit() {
         m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
     }
 
-    public void periodic() {
+    public void teleopPeriodic() {
         double leftY = -m_joystick.getLeftY();
         double leftX = m_joystick.getLeftX();
         double rightX = m_joystick.getRightX();

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenixpro.configs.Slot0Configs;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -29,7 +30,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
-  private DriveSystem m_DriveSystem;
+  private DriveSystem m_DriveSystem = new DriveSystem();
+  private Pigeon2 pig = new Pigeon2(5, "canivore");
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -38,22 +40,19 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
       m_robotContainer = new RobotContainer();
-
+      pig.setYaw(0);
     }
 
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-        
-        
 
-      
     }
 
     @Override
     public void autonomousInit() {
       m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+      pig.setYaw(0);
       if (m_autonomousCommand != null) {
         m_autonomousCommand.schedule();
       }
@@ -67,14 +66,13 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
       if (m_autonomousCommand != null) {
         m_autonomousCommand.cancel();
-        m_DriveSystem.roboinit();
       }
+      m_DriveSystem.roboinit();
     }
 
     @Override
     public void teleopPeriodic() {
       m_robotContainer.periodic();
-
     }
 
     @Override

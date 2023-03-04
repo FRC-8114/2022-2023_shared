@@ -1,5 +1,7 @@
 package frc.robot.CTRSwerve;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenixpro.BaseStatusSignalValue;
 import com.ctre.phoenixpro.hardware.Pigeon2;
 import edu.wpi.first.math.controller.PIDController;
@@ -17,15 +19,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class CTRSwerveDrivetrain {
     private final int ModuleCount;
 
-    private CTRSwerveModule[] m_modules;
+    public CTRSwerveModule[] m_modules;
     private Pigeon2 m_pigeon2;
-    private SwerveDriveKinematics m_kinematics;
+    public SwerveDriveKinematics m_kinematics;
     private SwerveDriveOdometry m_odometry;
     private SwerveModulePosition[] m_modulePositions;
     private Translation2d[] m_moduleLocations;
     private OdometryThread m_odometryThread;
     private Field2d m_field;
     private PIDController m_turnPid;
+    public Supplier<Pose2d> PoseSupplier = () -> m_odometry.getPoseMeters();
 
     /* Perform swerve module updates in a separate thread to minimize latency */
     private class OdometryThread extends Thread {
@@ -168,5 +171,15 @@ public class CTRSwerveDrivetrain {
 
     public double getFailedDaqs() {
         return m_odometryThread.FailedDaqs;
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        m_odometry.resetPosition(m_odometry.getPoseMeters().getRotation(), m_modulePositions, pose);
+
+    }
+
+    public SwerveDriveKinematics getKinematics(){
+            return m_kinematics;
+
     }
 }
