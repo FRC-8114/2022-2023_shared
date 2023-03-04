@@ -29,6 +29,26 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
+  private DriveSystem m_DriveSystem;
+
+    /**
+     * This function is run when the robot is first started up and should be used for any
+     * initialization code.
+     */
+    @Override
+    public void robotInit() {
+      m_robotContainer = new RobotContainer();
+
+    }
+
+    @Override
+    public void robotPeriodic() {
+        CommandScheduler.getInstance().run();
+        
+        
+
+      
+    }
 
     @Override
     public void autonomousInit() {
@@ -47,8 +67,8 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
       if (m_autonomousCommand != null) {
         m_autonomousCommand.cancel();
+        m_DriveSystem.roboinit();
       }
-      RobotContainer.m_lastTargetAngle = DriveSystem.m_drivetrain.getPoseMeters().getRotation();
     }
 
     @Override

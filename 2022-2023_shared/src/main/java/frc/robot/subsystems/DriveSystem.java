@@ -8,29 +8,17 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
-import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
-import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
-import frc.robot.CTRSwerve.SwerveModuleConstants;
+import frc.robot.CTRSwerve.*;
 
 public class DriveSystem extends SubsystemBase {
-    public static final ChassisSpeeds directions = new ChassisSpeeds();;
-    private static boolean turtleToggle = false;
-    public static double leftX;
-    public static double leftY;
-    public static double rightX;
-    public static double rightY;
-    public static XboxController m_joystick = RobotContainer.m_joystick;
-
     
+    private boolean turtleToggle = false;
 
-    public static SwerveDriveTrainConstants drivetrain =
+    SwerveDriveTrainConstants drivetrain =
             new SwerveDriveTrainConstants().withPigeon2Id(5).withCANbusName("canivore").withTurnKp(5);
 
-    static Slot0Configs steerGains = new Slot0Configs();
-    static Slot0Configs driveGains = new Slot0Configs();
+    Slot0Configs steerGains = new Slot0Configs();
+    Slot0Configs driveGains = new Slot0Configs();
 
     {
         steerGains.kP = 30;
@@ -38,7 +26,7 @@ public class DriveSystem extends SubsystemBase {
         driveGains.kP = 1;
     }
 
-    static SwerveDriveConstantsCreator m_constantsCreator =
+    SwerveDriveConstantsCreator m_constantsCreator =
             new SwerveDriveConstantsCreator(10, 12.8, 3, 17, steerGains, driveGains);
 
     /**
@@ -47,36 +35,41 @@ public class DriveSystem extends SubsystemBase {
      *
      * <p>This particular drive base is 22" x 22"
      */
-    public static SwerveModuleConstants frontRight =
+    SwerveModuleConstants frontRight =
             m_constantsCreator.createModuleConstants(
                     13, 11, 12, -0.066650390625, Units.inchesToMeters(21.4 / 2.0), Units.inchesToMeters(-21.4 / 2.0));
-    public static SwerveModuleConstants frontLeft =
+    SwerveModuleConstants frontLeft =
             m_constantsCreator.createModuleConstants(
                     43, 41, 42, -0.752685546875, Units.inchesToMeters(21.4 / 2.0), Units.inchesToMeters(21.4 / 2.0));
-    public static SwerveModuleConstants backRight =
+    SwerveModuleConstants backRight =
             m_constantsCreator.createModuleConstants(
                     23, 21, 22, -0.771484375, Units.inchesToMeters(-21.4 / 2.0), Units.inchesToMeters(-21.4 / 2.0));
-    public static SwerveModuleConstants backLeft =
+    SwerveModuleConstants backLeft =
             m_constantsCreator.createModuleConstants(
                     33, 31, 32, -0.96240234375, Units.inchesToMeters(-21.4 / 2.0), Units.inchesToMeters(21.4 / 2.0));
 
-    public static CTRSwerveDrivetrain m_drivetrain =
+    CTRSwerveDrivetrain m_drivetrain =
             new CTRSwerveDrivetrain(drivetrain, frontLeft, frontRight, backLeft, backRight);
 
-
+    XboxController m_joystick = new XboxController(0);
 
   
     
-    static Rotation2d m_lastTargetAngle = new Rotation2d();
+    Rotation2d m_lastTargetAngle = new Rotation2d();
 
     public DriveSystem() {
-        
+
     }
-    public static void fieldCentric() {
-        leftX = RobotContainer.leftX;
-        leftY = RobotContainer.leftY;
-        rightX = RobotContainer.rightX;
-        rightY = RobotContainer.rightY;
+
+    public void roboinit() {
+        m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
+    }
+
+    public void periodic() {
+        double leftY = -m_joystick.getLeftY();
+        double leftX = m_joystick.getLeftX();
+        double rightX = m_joystick.getRightX();
+        double rightY = -m_joystick.getRightY();
 
         if (Math.abs(leftY) < 0.1 && Math.abs(leftX) < 0.1) {
             leftY = 0;
@@ -86,9 +79,12 @@ public class DriveSystem extends SubsystemBase {
             rightX = 0;
             rightY = 0;
         }
-        if (RobotContainer.m_joystick.getStartButtonPressed()) {
+        if (m_joystick.getStartButtonPressed()) {
             turtleToggle = !turtleToggle;
         }
+
+
+        var directions = new ChassisSpeeds();
 
         if (!turtleToggle) {
         directions.vxMetersPerSecond = leftY * 1.5;
@@ -102,9 +98,8 @@ public class DriveSystem extends SubsystemBase {
         }
         
 
-        
-
-        if (m_joystick.getYButton()) {  /* If we're pressing Y, don't move, otherwise do normal movement */
+        /* If we're pressing Y, don't move, otherwise do normal movement */
+        if (m_joystick.getYButton()) {
             m_drivetrain.driveStopMotion();
         } else {
             /* If we're fully field centric, we need to be pretty deflected to target an angle */
@@ -113,9 +108,15 @@ public class DriveSystem extends SubsystemBase {
             } else {
                 m_lastTargetAngle = new Rotation2d();
             }
-            m_drivetrain.driveFieldCentric(DriveSystem.directions);
+            m_drivetrain.driveFieldCentric(directions );
         }
-    
 
+        if (m_joystick.getRightBumper()) {
+            m_drivetrain.seedFieldRelative();
+            // Make us target forward now to avoid jumps
+            m_lastTargetAngle = new Rotation2d();
+        }
+
+       
     }
 }
