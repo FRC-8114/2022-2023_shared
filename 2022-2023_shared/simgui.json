@@ -1,0 +1,20 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
+      "/LiveWindow/Ungrouped/Pigeon 2 (Pro) [5]": "Gyro",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [11]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [13]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [21]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [23]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [31]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [33]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [41]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [43]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX (Pro) [7]": "Motor Controller"
+    }
+  }
+}

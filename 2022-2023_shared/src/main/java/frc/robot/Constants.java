@@ -22,7 +22,7 @@ public final class Constants {
 
     public static final class TeleOp {
         //Arm Constants
-        public static final double ARM_RUNNER_INITIAL_RUN_SPEED = .2;
+        public static final double ARM_RUNNER_INITIAL_RUN_SPEED = .5;
         public static final double ARM_RUNNER_INITIAL_REVERSE_SPEED = .2;
         public static final double ARM_DEPLOYER_INITIAL_RUN_SPEED = .3;
         public static final double ARM_DEPLOYER_INITIAL_REVERSE_SPEED = .3;

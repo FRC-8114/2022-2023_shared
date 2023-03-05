@@ -123,9 +123,9 @@ public class DriveSystem extends SubsystemBase {
         var directions = new ChassisSpeeds();
 
         if (!turtleToggle) {
-        directions.vxMetersPerSecond = leftY * 1.5;
-        directions.vyMetersPerSecond = leftX * -1.5;
-        directions.omegaRadiansPerSecond = rightX * -4;
+        directions.vxMetersPerSecond = leftY * 4;
+        directions.vyMetersPerSecond = leftX * -4;
+        directions.omegaRadiansPerSecond = rightX * -5;
         }
         else if (turtleToggle) {
         directions.vxMetersPerSecond = leftY * (1 * Constants.TeleOp.TURTLE_SPEED);
