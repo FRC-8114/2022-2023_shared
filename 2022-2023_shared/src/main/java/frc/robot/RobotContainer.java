@@ -5,12 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.TeleOp;
 import frc.robot.subsystems.ArmSystem;
 import frc.robot.subsystems.Claw;
@@ -24,7 +19,7 @@ import com.pathplanner.lib.PathPlanner;
 public class RobotContainer {
   ArmSystem armSystem = new ArmSystem();
   public XboxController controller = new XboxController(0);
-  private int oldLeftTriggerAxis, oldRightTriggerAxis, oldPOV;
+  //private int oldLeftTriggerAxis, oldRightTriggerAxis, oldPOV;
   private DriveSystem m_DriveSystem = new DriveSystem();
   shuffle shuffle1 = new shuffle();
 
@@ -40,38 +35,50 @@ public class RobotContainer {
   private void configureBindings() {}
 
   public Command getAutonomousCommand() {
-    return m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("New Path", new PathConstraints(4, 3)), true );
+    return m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("New Path", new PathConstraints(6, 4)), true );
   }
 
   public void initializeInstanceVariables() {
     //oldLeftTriggerAxis = oldRightTriggerAxis = 0;
-    oldPOV = -1;
+    //oldPOV = -1;
     //oldRightStickButton = false;
     
   }
 
   public void periodic() {
     m_DriveSystem.teleopPeriodic();
-    switch (controller.getPOV()) {
-      case 0: // UP
-        ArmSystem.ArmRunnerUp(ArmRunnerRunSpeed);
-        break;
-      case 90: // RIGHT
-        ArmSystem.ArmDeployerDown(ArmDeployerRunSpeed);
-        break;
-      case 180: // DOWN
-        ArmSystem.ArmRunnerDown(ArmRunnerReverseSpeed);
-        break;
-      case 270: // LEFT
-        ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed);
-        break;
-      default: // NONE
-        if (oldPOV >= 0) {
-          ArmSystem.ArmStop();
-          ArmSystem.ArmDeployerStop();
-        }
-      }
-      oldPOV = ((int)controller.getPOV());
+    // switch (controller.getPOV()) {
+    //   case 0: // UP
+    //     ArmSystem.ArmRunnerUp(ArmRunnerRunSpeed);
+    //     break;
+    //   case 90: // RIGHT
+    //     ArmSystem.ArmDeployerDown(ArmDeployerRunSpeed);
+    //     break;
+    //   case 180: // DOWN
+    //     ArmSystem.ArmRunnerDown(ArmRunnerReverseSpeed);
+    //     break;
+    //   case 270: // LEFT
+    //     ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed);
+    //     break;
+    //   default: // NONE
+    //     if (oldPOV >= 0) {
+    //       ArmSystem.ArmStop();
+    //       ArmSystem.ArmDeployerStop();
+    //     }
+    //   }
+
+    if (controller.getAButton()) {
+      ArmSystem.ArmRunnerUp(ArmRunnerRunSpeed);
+  } else if (controller.getBButton()) {
+      ArmSystem.ArmDeployerDown(ArmDeployerRunSpeed);
+  } else if (controller.getYButton()) {
+      ArmSystem.ArmRunnerDown(ArmRunnerReverseSpeed);
+  } else if (controller.getXButton()) {
+      ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed);
+  } else {
+    ArmSystem.ArmStop();
+    ArmSystem.ArmDeployerStop();
+  }
 
       if (controller.getRightTriggerAxis() != 0)
       {
@@ -99,9 +106,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  //private void configureButtonBindings() {
     //buttons
-  }
+  //}
 
   public XboxController getXboxController() {
     return controller;

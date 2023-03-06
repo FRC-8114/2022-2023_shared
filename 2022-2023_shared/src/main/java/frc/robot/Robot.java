@@ -5,19 +5,9 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenixpro.configs.Slot0Configs;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
-import frc.robot.CTRSwerve.SwerveDriveConstantsCreator;
-import frc.robot.CTRSwerve.SwerveDriveTrainConstants;
-import frc.robot.CTRSwerve.SwerveModuleConstants;
-import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSystem;
 
 /**

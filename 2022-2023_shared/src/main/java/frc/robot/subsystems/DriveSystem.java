@@ -123,8 +123,8 @@ public class DriveSystem extends SubsystemBase {
         var directions = new ChassisSpeeds();
 
         if (!turtleToggle) {
-        directions.vxMetersPerSecond = leftY * 4;
-        directions.vyMetersPerSecond = leftX * -4;
+        directions.vxMetersPerSecond = leftY * 4.5;
+        directions.vyMetersPerSecond = leftX * -4.5;
         directions.omegaRadiansPerSecond = rightX * -5;
         }
         else if (turtleToggle) {
@@ -135,7 +135,7 @@ public class DriveSystem extends SubsystemBase {
         
 
         /* If we're pressing Y, don't move, otherwise do normal movement */
-        if (m_joystick.getYButton()) {
+        if (m_joystick.getLeftBumper()) {
             m_drivetrain.driveStopMotion();
         } else {
             /* If we're fully field centric, we need to be pretty deflected to target an angle */

@@ -1,12 +1,9 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.networktables.*;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.*;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 
@@ -15,7 +12,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
-import com.ctre.phoenixpro.controls.CoastOut;
 import com.ctre.phoenixpro.controls.NeutralOut;
 //import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenixpro.hardware.TalonFX;
