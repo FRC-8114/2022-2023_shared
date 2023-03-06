@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import java.util.function.Consumer;
 
 import com.ctre.phoenixpro.configs.Slot0Configs;
+import com.ctre.phoenixpro.hardware.Pigeon2;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
@@ -22,6 +23,7 @@ import frc.robot.CTRSwerve.*;
 public class DriveSystem extends SubsystemBase {
 
     private boolean turtleToggle = false;
+    private Pigeon2 pig = new Pigeon2(5, "canivore");
 
     SwerveDriveTrainConstants drivetrain =
             new SwerveDriveTrainConstants().withPigeon2Id(5).withCANbusName("canivore").withTurnKp(5);
@@ -98,6 +100,7 @@ public class DriveSystem extends SubsystemBase {
     }
 
     public void roboinit() {
+        pig.setYaw(0);
         m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
     }
 
