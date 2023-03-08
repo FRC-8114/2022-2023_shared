@@ -14,12 +14,16 @@ public class shuffle extends SubsystemBase {
     public ShuffleboardTab controls1 = Shuffleboard.getTab("Controls");
     Pigeon2 pig = new Pigeon2(5, "canivore");
     DoubleSupplier pigyaw = () -> pig.getYaw().getValue();
+    DoubleSupplier pigpitch = () -> pig.getPitch().getValue();
+    DoubleSupplier pigroll = () -> pig.getRoll().getValue();
     GenericEntry turtlespeed 
         = Shuffleboard.getTab("Controls").add("Turtle speed", 0.3).withWidget(BuiltInWidgets.kTextView).getEntry();
         
 
     public shuffle() {
         Shuffleboard.getTab("Controls").addDouble("Pigeon Yaw", pigyaw);
+        Shuffleboard.getTab("Controls").addDouble("Pigeon Pitch", pigpitch);
+        Shuffleboard.getTab("Controls").addDouble("Pigeon Roll", pigroll);
         Shuffleboard.getTab("Controls").add(CTRSwerveDrivetrain.m_field);
         // Shuffleboard.getTab("Controls").add("Successful Daqs", CTRSwerveDrivetrain.getFailedDaqs());
         // Shuffleboard.getTab("Controls").add("Failed Daqs", CTRSwerveDrivetrain.getFailedDaqs());

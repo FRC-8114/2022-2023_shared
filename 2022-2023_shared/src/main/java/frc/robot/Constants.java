@@ -1,5 +1,9 @@
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
+import frc.robot.subsystems.pigeon2checks;
+
 public final class Constants {
     public static final double stickDeadband = 0.1;
 
@@ -23,7 +27,7 @@ public final class Constants {
     public static final class TeleOp {
         //Arm Constants
         public static final double ARM_RUNNER_INITIAL_RUN_SPEED = .2;
-        public static final double ARM_RUNNER_INITIAL_REVERSE_SPEED = .4;
+        public static final double ARM_RUNNER_INITIAL_REVERSE_SPEED = .2;
         public static final double ARM_DEPLOYER_INITIAL_RUN_SPEED = .3;
         public static final double ARM_DEPLOYER_INITIAL_REVERSE_SPEED = .3;
 
@@ -35,7 +39,19 @@ public final class Constants {
 
       }
 
+    public static final class Pigeon2stuff {
+        public static BooleanSupplier rollCheck5 = () -> pigeon2checks.rollCheck(5.0);
+    }
+
     public static final class DriveConstants {
         public static final String CANIVORE = "canivore";
+    }
+
+    public static final class AutoConstants {
+        public static final int ClawAutoRunTime = 0;
+        public static final int ArmAutoRunTime = 0;
+        public static final int DartAutoRunTime = 0;
+        public static final int AutoRunTime = 0;
+
     }
 }

@@ -6,21 +6,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Autos.TwoPointAuto;
+import frc.robot.Autos.driveAuto.DriveTest;
 import frc.robot.Constants.TeleOp;
 import frc.robot.subsystems.ArmSystem;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.shuffle;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
 
 
 public class RobotContainer {
   ArmSystem armSystem = new ArmSystem();
   public XboxController controller = new XboxController(0);
   //private int oldLeftTriggerAxis, oldRightTriggerAxis, oldPOV;
-  private DriveSystem m_DriveSystem = new DriveSystem();
+  public static DriveSystem m_DriveSystem = new DriveSystem();
   shuffle shuffle1 = new shuffle();
 
   public static double ArmRunnerRunSpeed = TeleOp.ARM_RUNNER_INITIAL_RUN_SPEED;
@@ -35,7 +35,8 @@ public class RobotContainer {
   private void configureBindings() {}
 
   public Command getAutonomousCommand() {
-    return m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("New Path", new PathConstraints(6, 4)), true );
+    //return new TwoPointAuto();
+    return new DriveTest();
   }
 
   public void initializeInstanceVariables() {
@@ -68,11 +69,11 @@ public class RobotContainer {
     //   }
 
     if (controller.getAButton()) {
-      ArmSystem.ArmRunnerUp(ArmRunnerRunSpeed);
+      ArmSystem.ArmRunnerDown(ArmRunnerRunSpeed);
   } else if (controller.getBButton()) {
       ArmSystem.ArmDeployerDown(ArmDeployerRunSpeed);
   } else if (controller.getYButton()) {
-      ArmSystem.ArmRunnerDown(ArmRunnerReverseSpeed);
+      ArmSystem.ArmRunnerUp(ArmRunnerReverseSpeed);
   } else if (controller.getXButton()) {
       ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed);
   } else {

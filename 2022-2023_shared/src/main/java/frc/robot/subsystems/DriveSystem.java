@@ -59,7 +59,7 @@ public class DriveSystem extends SubsystemBase {
             m_constantsCreator.createModuleConstants(
                     33, 31, 32, -0.96240234375, Units.inchesToMeters(-21.4 / 2.0), Units.inchesToMeters(21.4 / 2.0));
 
-    CTRSwerveDrivetrain m_drivetrain =
+    public CTRSwerveDrivetrain m_drivetrain =
             new CTRSwerveDrivetrain(drivetrain, frontLeft, frontRight, backLeft, backRight);
 
     XboxController m_joystick = new XboxController(0);
@@ -100,8 +100,12 @@ public class DriveSystem extends SubsystemBase {
     }
 
     public void roboinit() {
-        pig.setYaw(0);
+    //    pig.setYaw(0);
         m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
+    }
+
+    public void runRemote(ChassisSpeeds hi) {
+        m_drivetrain.driveFieldCentric(hi);
     }
 
     public void teleopPeriodic() {

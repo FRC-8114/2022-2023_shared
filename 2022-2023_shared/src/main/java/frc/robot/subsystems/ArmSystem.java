@@ -53,7 +53,7 @@ public class ArmSystem extends SubsystemBase {
 
     // Runs the arm at a speed from 0 to 1.0
     public static void ArmRunnerUp (double speed) {
-        ArmRunController.set(speed);
+        ArmRunController.set(-speed);
     }
 
     // Runs the arm at a given voltage
@@ -63,7 +63,7 @@ public class ArmSystem extends SubsystemBase {
 
     // Reverses the arm at a speed from 0 to 1.0
     public static void ArmRunnerDown (double speed) {
-        ArmRunController.set(-speed);
+        ArmRunController.set(speed);
     }
 
     // Reverses the arm at a given voltage
