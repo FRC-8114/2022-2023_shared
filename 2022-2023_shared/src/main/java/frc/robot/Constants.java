@@ -40,7 +40,8 @@ public final class Constants {
       }
 
     public static final class Pigeon2stuff {
-        public static BooleanSupplier rollCheck5 = () -> pigeon2checks.rollCheck(5.0);
+        public static BooleanSupplier rollCheck5 = () -> pigeon2checks.rollCheck(6.0);
+        public static BooleanSupplier rollCheck0 = () -> !(pigeon2checks.rollCheck(6.0));
     }
 
     public static final class DriveConstants {

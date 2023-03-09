@@ -87,7 +87,9 @@ public class RobotContainer {
           
       }
       else if (controller.getRightTriggerAxis() == 0 && controller.getLeftTriggerAxis() == 0) {
-          Claw.SetNeo(0.0);
+          //Claw.SetNeo(-0.05);
+          Claw.NeoLeft.set(0.07);
+          Claw.NeoRight.set(-0.05);
       }
       
 
@@ -97,7 +99,9 @@ public class RobotContainer {
 
       }
       else if (controller.getRightTriggerAxis() == 0 && controller.getLeftTriggerAxis() == 0) {
-          Claw.SetNeo(0.0);
+          //Claw.SetNeo(-0.05);
+          Claw.NeoLeft.set(0.07);
+          Claw.NeoRight.set(-0.05);
       }
   }
 

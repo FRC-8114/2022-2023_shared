@@ -10,6 +10,8 @@ import com.ctre.phoenixpro.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenixpro.hardware.CANcoder;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.FeedbackSensorSourceValue;
+import com.ctre.phoenixpro.signals.NeutralModeValue;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -39,6 +41,7 @@ public class CTRSwerveModule {
 
         TalonFXConfiguration talonConfigs = new TalonFXConfiguration();
 
+        talonConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         talonConfigs.Slot0 = constants.DriveMotorGains;
         talonConfigs.TorqueCurrent.PeakForwardTorqueCurrent = constants.SlipCurrent;
         talonConfigs.TorqueCurrent.PeakReverseTorqueCurrent = -constants.SlipCurrent;
