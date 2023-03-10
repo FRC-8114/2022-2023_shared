@@ -13,9 +13,9 @@ public class DriveBackwardsAuto extends CommandBase {
   /** Creates a new DriveBackwardsAuto. */
   ChassisSpeeds directions = new ChassisSpeeds();
   private DriveSystem m_DriveSystem = new DriveSystem();
-  public DriveBackwardsAuto() {
+  public DriveBackwardsAuto(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    directions.vxMetersPerSecond = -0.1 * 2.5;
+    directions.vxMetersPerSecond = -(speed);
     directions.vyMetersPerSecond = 0 * -2.5;
     directions.omegaRadiansPerSecond = 0 * -3;
   }

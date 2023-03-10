@@ -17,9 +17,10 @@ public class DriveTest extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveForwardAuto(),
+      new DriveBackwardsAuto(1.5),
       Commands.waitUntil(Constants.Pigeon2stuff.rollCheck5),
-      new DriveForwardAuto(),
+      new DriveBackwardsAuto(9.0),
+      Commands.waitSeconds(1),
       Commands.waitUntil(Constants.Pigeon2stuff.rollCheck0),
       new DriveStopAuto()
     );

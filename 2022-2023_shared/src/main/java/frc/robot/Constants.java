@@ -44,8 +44,8 @@ public final class Constants {
       }
 
     public static final class Pigeon2stuff {
-        public static BooleanSupplier rollCheck5 = () -> hardwareChecks.rollCheck(6.0);
-        public static BooleanSupplier rollCheck0 = () -> hardwareChecks.rollCheckBetween(4.0,-4.0);
+        public static BooleanSupplier rollCheck5 = () -> hardwareChecks.rollCheck(-8.0);
+        public static BooleanSupplier rollCheck0 = () -> hardwareChecks.rollCheckBetween(6.0,-6.0);
     }
 
     public static final class DriveConstants {

@@ -15,7 +15,7 @@ public class DriveForwardAuto extends CommandBase {
   private DriveSystem m_DriveSystem = new DriveSystem();
   public DriveForwardAuto() {
     // Use addRequirements() here to declare subsystem dependencies.
-    directions.vxMetersPerSecond = 1.55 * 2.5;
+    directions.vxMetersPerSecond = 1 * 7.25;
     directions.vyMetersPerSecond = 0 * -2.5;
     directions.omegaRadiansPerSecond = 0 * -3;
   }

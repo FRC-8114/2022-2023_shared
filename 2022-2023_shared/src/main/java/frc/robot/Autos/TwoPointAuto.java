@@ -29,7 +29,7 @@ public class TwoPointAuto extends SequentialCommandGroup {
     addCommands(
       new HighCubePointAuto(),
       Commands.waitSeconds(0.2),
-      m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("New Path", new PathConstraints(6, 4)), true )
+      m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("New Path", new PathConstraints(6, 5)), true )
       
       
       );

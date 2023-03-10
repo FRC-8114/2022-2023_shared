@@ -34,7 +34,7 @@ public class HighCubePointAuto extends SequentialCommandGroup {
     Commands.waitSeconds(0.75),
     new ArmStopAuto(),
     new DartInAuto(),
-    Commands.waitSeconds(0.75),
+    Commands.waitSeconds(0.70),
     new DartStopAuto()
 
 
