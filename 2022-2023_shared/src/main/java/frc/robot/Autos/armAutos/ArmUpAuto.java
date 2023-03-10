@@ -17,7 +17,7 @@ public class ArmUpAuto extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ArmSystem.ArmRunnerUp(TeleOp.ARM_DEPLOYER_INITIAL_REVERSE_SPEED);
+    ArmSystem.ArmRunnerUp(0.3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

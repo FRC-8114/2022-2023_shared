@@ -24,7 +24,7 @@ public class HighCubePointAuto extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     new ArmUpAuto(),
-    Commands.waitSeconds(0.50),
+    Commands.waitSeconds(0.5),
     new ArmStopAuto(),
     new DartOutAuto(),
     Commands.waitSeconds(0.75),

@@ -32,11 +32,11 @@ public final class Constants {
         //Arm Constants
         public static final double ARM_RUNNER_INITIAL_RUN_SPEED = .2;
         public static final double ARM_RUNNER_INITIAL_REVERSE_SPEED = .2;
-        public static final double ARM_DEPLOYER_INITIAL_RUN_SPEED = .3;
-        public static final double ARM_DEPLOYER_INITIAL_REVERSE_SPEED = .3;
+        public static final double ARM_DEPLOYER_INITIAL_RUN_SPEED = .4;
+        public static final double ARM_DEPLOYER_INITIAL_REVERSE_SPEED = .8;
 
         //Claw Constants
-        public static final double CLAW_SPEED = .5;
+        public static final double CLAW_SPEED = .8;
 
         //Turtle Constant
         public static double TURTLE_SPEED = .65;
