@@ -38,8 +38,8 @@ public class RobotContainer {
   private void configureBindings() {}
 
   public Command getAutonomousCommand() {
-    //return new TwoPointAuto();
-    return new DriveTest();
+    return new TwoPointAuto();
+    //return new DriveTest();
   }
 
   public void initializeInstanceVariables() {
