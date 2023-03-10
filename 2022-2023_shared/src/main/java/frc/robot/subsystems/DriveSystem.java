@@ -130,7 +130,7 @@ public class DriveSystem extends SubsystemBase {
         var directions = new ChassisSpeeds();
 
         if (!turtleToggle) {
-            directions.vxMetersPerSecond = leftY * 6;
+        directions.vxMetersPerSecond = leftY * 6;
         directions.vyMetersPerSecond = leftX * -6;
         directions.omegaRadiansPerSecond = rightX * -5;
         }

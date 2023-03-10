@@ -36,16 +36,16 @@ public final class Constants {
         public static final double ARM_DEPLOYER_INITIAL_REVERSE_SPEED = .3;
 
         //Claw Constants
-        public static final double CLAW_SPEED = .3;
+        public static final double CLAW_SPEED = .5;
 
         //Turtle Constant
-        public static double TURTLE_SPEED = .3;
+        public static double TURTLE_SPEED = .65;
 
       }
 
     public static final class Pigeon2stuff {
-        public static BooleanSupplier rollCheck5 = () -> hardwareChecks.rollCheck(-8.0);
-        public static BooleanSupplier rollCheck0 = () -> hardwareChecks.rollCheckBetween(6.0,-6.0);
+        public static BooleanSupplier rollCheck5 = () -> hardwareChecks.rollCheck(-11.0);
+        public static BooleanSupplier rollCheck0 = () -> hardwareChecks.rollCheckBetween(10.0,-10.0);
     }
 
     public static final class DriveConstants {

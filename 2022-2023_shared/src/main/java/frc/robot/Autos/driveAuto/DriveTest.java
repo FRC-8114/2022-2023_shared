@@ -6,6 +6,7 @@ package frc.robot.Autos.driveAuto;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,10 +18,11 @@ public class DriveTest extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveBackwardsAuto(1.5),
+      new DriveBackwardsAuto(2),
       Commands.waitUntil(Constants.Pigeon2stuff.rollCheck5),
-      new DriveBackwardsAuto(9.0),
-      Commands.waitSeconds(1),
+      new DriveBackwardsAuto(8.5),
+      Commands.waitUntil(Constants.Pigeon2stuff.rollCheck0),
+      new DriveForwardAuto(1),
       Commands.waitUntil(Constants.Pigeon2stuff.rollCheck0),
       new DriveStopAuto()
     );

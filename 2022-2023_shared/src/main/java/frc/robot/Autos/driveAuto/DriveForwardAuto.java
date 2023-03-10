@@ -13,9 +13,9 @@ public class DriveForwardAuto extends CommandBase {
   /** Creates a new DriveForwardAuto. */
   ChassisSpeeds directions = new ChassisSpeeds();
   private DriveSystem m_DriveSystem = new DriveSystem();
-  public DriveForwardAuto() {
+  public DriveForwardAuto(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    directions.vxMetersPerSecond = 1 * 7.25;
+    directions.vxMetersPerSecond = speed;
     directions.vyMetersPerSecond = 0 * -2.5;
     directions.omegaRadiansPerSecond = 0 * -3;
   }

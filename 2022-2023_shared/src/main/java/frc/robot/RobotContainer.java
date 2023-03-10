@@ -110,7 +110,7 @@ public class RobotContainer {
 
       }
       else if (controller.getPOV() == 180) {
-          Claw.SetNeo(Constants.TeleOp.CLAW_SPEED*3.3);
+          Claw.SetNeo(1);
       }
       else if (controller.getRightTriggerAxis() == 0 && controller.getLeftTriggerAxis() == 0 && !Constants.shuffleButtons.clawin && !Constants.shuffleButtons.clawout) {
           //Claw.SetNeo(-0.05);

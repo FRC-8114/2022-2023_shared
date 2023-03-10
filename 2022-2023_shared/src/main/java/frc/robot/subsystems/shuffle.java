@@ -20,7 +20,7 @@ public class shuffle extends SubsystemBase {
 
     
     GenericEntry turtlespeed 
-        = Shuffleboard.getTab("Controls").add("Turtle speed", 0.3).withWidget(BuiltInWidgets.kTextView).getEntry();
+        = Shuffleboard.getTab("Controls").add("Turtle speed", 0.65).withWidget(BuiltInWidgets.kTextView).getEntry();
 
     GenericEntry armU
         = Shuffleboard.getTab("Controls").add("Arm Up", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
