@@ -1,8 +1,10 @@
 package frc.robot;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
-import frc.robot.subsystems.pigeon2checks;
+import frc.robot.subsystems.ArmSystem;
+import frc.robot.subsystems.hardwareChecks;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
@@ -19,8 +21,10 @@ public final class Constants {
         public static final int ARM_DEPLOY_ID = 1;
         public static final int ARM_RUN_PORT = 90;
         public static final boolean ARM_RUN_INVERSED = false;
-        public static final boolean ARM_DEPLOY_INVERSED = true;
+        public static final boolean ARM_DEPLOY_INVERSED = false;
         public static final double ARM_DEPLOY_CONVERSTION_FACTOR = 0;
+
+        public static DoubleSupplier dartPosition = () -> ArmSystem.ArmDeployController.getEncoder().getPosition();
 
     }
 
@@ -40,8 +44,8 @@ public final class Constants {
       }
 
     public static final class Pigeon2stuff {
-        public static BooleanSupplier rollCheck5 = () -> pigeon2checks.rollCheck(6.0);
-        public static BooleanSupplier rollCheck0 = () -> !(pigeon2checks.rollCheck(6.0));
+        public static BooleanSupplier rollCheck5 = () -> hardwareChecks.rollCheck(6.0);
+        public static BooleanSupplier rollCheck0 = () -> hardwareChecks.rollCheckBetween(4.0,-4.0);
     }
 
     public static final class DriveConstants {
@@ -55,4 +59,15 @@ public final class Constants {
         public static final int AutoRunTime = 0;
 
     }
+
+    public static final class shuffleButtons {
+        public static Boolean armUp = false;
+        public static Boolean armDown = false;
+        public static Boolean dartOut = false;
+        public static Boolean dartIn = false;
+
+        public static Boolean clawout = false;
+        public static Boolean clawin = false;
+    }
 }
+    

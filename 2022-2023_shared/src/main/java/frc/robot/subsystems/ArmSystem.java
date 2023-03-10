@@ -61,7 +61,7 @@ public class ArmSystem extends SubsystemBase {
         ArmRunController.setVoltage(voltage);
     }
 
-    // Reverses the arm at a speed from 0 to 1.0
+    // Reverses the arm at a speed from 0 to 1.0 
     public static void ArmRunnerDown (double speed) {
         ArmRunController.set(speed);
     }
@@ -77,8 +77,9 @@ public class ArmSystem extends SubsystemBase {
     }
 
     // Runs the dart at a speed from 0 to 1.0
+    // In
     public static void ArmDeployerUp (double speed) {
-        ArmDeployController.set(speed);
+        ArmDeployController.set(-speed);
     }
 
     // Runs the dart at a given voltage
@@ -87,8 +88,9 @@ public class ArmSystem extends SubsystemBase {
     }
 
     // Reverses the dart at a speed from 0 to 1.0
+    // Out
     public static void ArmDeployerDown (double speed) {
-        ArmDeployController.set(-speed);
+        ArmDeployController.set(speed);
     }
 
     // Reverses the dart at a given voltage

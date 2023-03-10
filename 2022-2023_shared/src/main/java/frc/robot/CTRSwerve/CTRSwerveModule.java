@@ -53,6 +53,7 @@ public class CTRSwerveModule {
         talonConfigs.Slot0 = constants.SteerMotorGains;
         // Modify configuration to use remote CANcoder fused
         talonConfigs.Feedback.FeedbackRemoteSensorID = constants.CANcoderId;
+        talonConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         talonConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
         talonConfigs.Feedback.RotorToSensorRatio = constants.SteerMotorGearRatio;
 

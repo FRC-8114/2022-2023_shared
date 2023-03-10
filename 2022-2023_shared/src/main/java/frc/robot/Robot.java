@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.Pigeon2stuff;
 import frc.robot.subsystems.DriveSystem;
-import frc.robot.subsystems.pigeon2checks;
+import frc.robot.subsystems.hardwareChecks;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-      pigeon2checks.resets();
+      hardwareChecks.resets();
       m_autonomousCommand = m_robotContainer.getAutonomousCommand();
       if (m_autonomousCommand != null) {
         m_autonomousCommand.schedule();
