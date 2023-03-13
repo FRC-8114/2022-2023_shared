@@ -2,29 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Autos.driveAuto;
+package frc.robot.Autos;
 
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import com.ctre.phoenixpro.hardware.Pigeon2;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveSystem;
 
-public class DriveStopAuto extends CommandBase {
-  /** Creates a new DriveStopAuto. */
-  ChassisSpeeds directions = new ChassisSpeeds();
-  private DriveSystem m_DriveSystem = new DriveSystem();
-  public DriveStopAuto() {
-        directions.vxMetersPerSecond = 0 * 2.5;
-        directions.vyMetersPerSecond = 0 * -2.5;
-        directions.omegaRadiansPerSecond = 0 * -3;
-        
+public class pigSet extends CommandBase {
+  /** Creates a new pigSet. */
+  Pigeon2 pig = new Pigeon2(5, "canivore");
+  public pigSet() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_DriveSystem.runRemote(directions);
-    m_DriveSystem.xMe();
+    pig.setYaw(180);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

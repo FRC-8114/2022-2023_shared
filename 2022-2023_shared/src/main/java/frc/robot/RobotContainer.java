@@ -118,14 +118,14 @@ public class RobotContainer {
 
       if (controller.getLeftTriggerAxis() != 0 || Constants.shuffleButtons.clawout)
       {
-          Claw.SetNeo(Constants.TeleOp.CLAW_SPEED/2);
+          Claw.SetNeo(Constants.TeleOp.CLAW_SPEED/1.5);
 
       }
       else if (controller.getPOV() == 180) {
-          Claw.SetNeo(1);
+          Claw.SetNeo(0.125);
       }
       else if (controller.getPOV() == 0) {
-          Claw.SetNeo(0.1); 
+          Claw.SetNeo(0.15); 
       }
       else if (controller.getRightTriggerAxis() == 0 && controller.getLeftTriggerAxis() == 0 && !Constants.shuffleButtons.clawin && !Constants.shuffleButtons.clawout) {
           //Claw.SetNeo(-0.05);

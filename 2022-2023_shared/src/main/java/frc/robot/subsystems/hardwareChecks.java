@@ -27,6 +27,13 @@ public class hardwareChecks extends SubsystemBase {
     return false; }
   }
 
+  public static boolean rollCheckGreater(double a) {
+    if (john.getRoll().getValue() >= a) {
+    return true; }
+    else {
+    return false; }
+  }
+
   public static boolean rollCheckBetween(double lessthan,double greaterthan) {
     if (john.getRoll().getValue() >= greaterthan && john.getRoll().getValue() <= lessthan) {
       return true;

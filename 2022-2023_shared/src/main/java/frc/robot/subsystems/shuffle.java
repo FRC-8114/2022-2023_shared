@@ -20,7 +20,7 @@ public class shuffle extends SubsystemBase {
 
     
     GenericEntry turtlespeed 
-        = Shuffleboard.getTab("Controls").add("Turtle speed", 0.65).withWidget(BuiltInWidgets.kTextView).getEntry();
+        = Shuffleboard.getTab("Controls").add("Turtle speed", 10).withWidget(BuiltInWidgets.kTextView).getEntry();
 
     GenericEntry armU
         = Shuffleboard.getTab("Controls").add("Arm Up", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
@@ -47,21 +47,21 @@ public class shuffle extends SubsystemBase {
         Shuffleboard.getTab("Controls").addDouble("Y Pos", CTRSwerveDrivetrain.PosY);
         Shuffleboard.getTab("Controls").addDouble("Angle", CTRSwerveDrivetrain.Rotation);
         Shuffleboard.getTab("Controls").addDouble("Dart Position", Constants.ArmConstants.dartPosition);
-        Shuffleboard.getTab("Controls").addCamera("Seeing Camera", "Pi Cam", "10.81.14.20:1182/stream.mjpg?1678411575267");
+        Shuffleboard.getTab("Controls").addBoolean("Turtle Toggle State", Constants.shuffleButtons.turtle);
     }
     private int i = 0;
     public void periodic() {
         
-        if (i == 25) {
+        if (i >= 25) {
         Shuffleboard.update();
-        Constants.TeleOp.TURTLE_SPEED = turtlespeed.getDouble(1);
-        Constants.shuffleButtons.armUp = armU.getBoolean(false);
+        Constants.TeleOp.TURTLE_SPEED = turtlespeed.getDouble(10);
+        /*Constants.shuffleButtons.armUp = armU.getBoolean(false);
         Constants.shuffleButtons.armDown = armD.getBoolean(false);
         Constants.shuffleButtons.dartOut = dartO.getBoolean(false);
         Constants.shuffleButtons.dartIn = dartI.getBoolean(false);
 
         Constants.shuffleButtons.clawin = clawIn.getBoolean(false);
-        Constants.shuffleButtons.clawout = clawOut.getBoolean(false);
+        Constants.shuffleButtons.clawout = clawOut.getBoolean(false);*/
         i = 0;
         }
         else {

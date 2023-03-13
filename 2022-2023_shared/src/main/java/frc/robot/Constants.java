@@ -4,6 +4,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import frc.robot.subsystems.ArmSystem;
+import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.hardwareChecks;
 
 public final class Constants {
@@ -36,17 +37,17 @@ public final class Constants {
         public static final double ARM_DEPLOYER_INITIAL_REVERSE_SPEED = .8;
 
         //Claw Constants
-        public static final double CLAW_SPEED = .8;
+        public static final double CLAW_SPEED = .45;
 
         //Turtle Constant
-        public static double TURTLE_SPEED = .65;
+        public static double TURTLE_SPEED = 10;
 
       }
 
     public static final class Pigeon2stuff {
         public static BooleanSupplier rollCheck5 = () -> hardwareChecks.rollCheck(-11.0);
         public static BooleanSupplier rollCheck0 = () -> hardwareChecks.rollCheckBetween(10.0,-10.0);
-    }
+    }   
 
     public static final class DriveConstants {
         public static final String CANIVORE = "canivore";
@@ -68,6 +69,8 @@ public final class Constants {
 
         public static Boolean clawout = false;
         public static Boolean clawin = false;
+
+        public static BooleanSupplier turtle = () -> DriveSystem.turtleCurrent();
     }
 }
     

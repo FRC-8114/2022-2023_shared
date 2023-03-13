@@ -3,7 +3,10 @@ package frc.robot.subsystems;
 import java.util.function.Consumer;
 
 import com.ctre.phoenixpro.configs.Slot0Configs;
+import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.hardware.Pigeon2;
+import com.ctre.phoenixpro.hardware.TalonFX;
+import com.ctre.phoenixpro.signals.NeutralModeValue;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
@@ -22,7 +25,16 @@ import frc.robot.CTRSwerve.*;
 
 public class DriveSystem extends SubsystemBase {
 
-    private boolean turtleToggle = false;
+    String canbusName = "carnivore";
+
+    TalonFX m_driveMotor1 = new TalonFX(11, canbusName);
+    TalonFX m_driveMotor2 = new TalonFX(21, canbusName);
+    TalonFX m_driveMotor3 = new TalonFX(31, canbusName);
+    TalonFX m_driveMotor4 = new TalonFX(41, canbusName);
+    
+    TalonFXConfiguration talonConfigs = new TalonFXConfiguration();
+
+    private static boolean turtleToggle = false;
     private Pigeon2 pig = new Pigeon2(5, "canivore");
 
     SwerveDriveTrainConstants drivetrain =
@@ -46,6 +58,9 @@ public class DriveSystem extends SubsystemBase {
      *
      * <p>This particular drive base is 22" x 22"
      */
+
+    
+
     SwerveModuleConstants frontRight =
             m_constantsCreator.createModuleConstants(
                     13, 11, 12, -0.066650390625, Units.inchesToMeters(21.4 / 2.0), Units.inchesToMeters(-21.4 / 2.0));
@@ -59,6 +74,7 @@ public class DriveSystem extends SubsystemBase {
             m_constantsCreator.createModuleConstants(
                     33, 31, 32, -0.96240234375, Units.inchesToMeters(-21.4 / 2.0), Units.inchesToMeters(21.4 / 2.0));
 
+                    
     public CTRSwerveDrivetrain m_drivetrain =
             new CTRSwerveDrivetrain(drivetrain, frontLeft, frontRight, backLeft, backRight);
 
@@ -104,11 +120,20 @@ public class DriveSystem extends SubsystemBase {
         m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
     }
 
+    public static boolean turtleCurrent() {
+        return turtleToggle;
+    }
+
     public void runRemote(ChassisSpeeds hi) {
         m_drivetrain.driveFieldCentric(hi);
     }
 
+    public void xMe() {
+        m_drivetrain.driveStopMotion();
+    }
+
     public void teleopPeriodic() {
+        
         double leftY = -m_joystick.getLeftY();
         double leftX = m_joystick.getLeftX();
         double rightX = m_joystick.getRightX();
@@ -123,8 +148,21 @@ public class DriveSystem extends SubsystemBase {
             rightY = 0;
         }
         if (m_joystick.getStartButtonPressed()) {
-            turtleToggle = !turtleToggle;
-        }
+            if (turtleToggle == false) {
+            turtleToggle = true;
+            talonConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+            m_driveMotor1.getConfigurator().apply(talonConfigs);
+            m_driveMotor2.getConfigurator().apply(talonConfigs);
+            m_driveMotor3.getConfigurator().apply(talonConfigs);
+            m_driveMotor4.getConfigurator().apply(talonConfigs); }
+            else if (turtleToggle == true) {
+                turtleToggle = false;
+                talonConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake; 
+                m_driveMotor1.getConfigurator().apply(talonConfigs);
+                m_driveMotor2.getConfigurator().apply(talonConfigs);
+                m_driveMotor3.getConfigurator().apply(talonConfigs);          
+                m_driveMotor4.getConfigurator().apply(talonConfigs); }
+        } 
 
 
         var directions = new ChassisSpeeds();
@@ -137,7 +175,8 @@ public class DriveSystem extends SubsystemBase {
         else if (turtleToggle) {
         directions.vxMetersPerSecond = leftY * (1 * Constants.TeleOp.TURTLE_SPEED);
         directions.vyMetersPerSecond = leftX * (-1 * Constants.TeleOp.TURTLE_SPEED);
-        directions.omegaRadiansPerSecond = rightX * (-4 * Constants.TeleOp.TURTLE_SPEED);
+        directions.omegaRadiansPerSecond = rightX * (-5);
+
         }
         
 
