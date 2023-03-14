@@ -5,7 +5,7 @@
 package frc.robot.Autos.armAutos;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.TeleOp;
+import frc.robot.Autos.ConstantsAuto.armConstantsAuto;
 import frc.robot.subsystems.ArmSystem;
 
 public class ArmDownAuto extends CommandBase {
@@ -17,7 +17,7 @@ public class ArmDownAuto extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ArmSystem.ArmRunnerDown(TeleOp.ARM_DEPLOYER_INITIAL_RUN_SPEED);
+    ArmSystem.ArmRunnerDown(armConstantsAuto.armDownConstantAuto);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

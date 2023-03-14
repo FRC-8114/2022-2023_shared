@@ -5,6 +5,8 @@
 package frc.robot.Autos.clawAutos;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Autos.ConstantsAuto.clawConstantsAuto;
+import frc.robot.subsystems.Claw;
 
 public class setClawInwardAuto extends CommandBase {
   /** Creates a new setClawInwardAuto. */
@@ -14,7 +16,9 @@ public class setClawInwardAuto extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Claw.SetNeo(clawConstantsAuto.clawInwardConstantAuto);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -27,6 +31,6 @@ public class setClawInwardAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

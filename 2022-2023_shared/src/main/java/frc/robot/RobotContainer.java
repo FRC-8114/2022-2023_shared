@@ -7,12 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Autos.TwoPointAuto;
-import frc.robot.Autos.driveAuto.DriveTest;
 import frc.robot.Constants.TeleOp;
 import frc.robot.subsystems.ArmSystem;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSystem;
-import frc.robot.subsystems.hardwareChecks;
 import frc.robot.subsystems.shuffle;
 
 import com.ctre.phoenixpro.hardware.Pigeon2;
@@ -83,25 +81,23 @@ public class RobotContainer {
   else {
       ArmSystem.ArmStop(); }
 
-
-  // limiter
-  if (controller.getPOV() == 270) {
-    limit = true;
-  }
-  else {
-    limit = false;  
-  }
+      if (controller.getPOV() == 270){
+        limit = true;
+      }
+      else{
+        limit = false;
+      }
   
-  if ((controller.getBButton() || Constants.shuffleButtons.dartOut) && ((Constants.ArmConstants.dartPosition.getAsDouble() < 30) || limit)) {
+  if ((controller.getBButton() || Constants.shuffleButtons.dartOut) && (Constants.ArmConstants.dartPosition.getAsDouble() < 30)) {
       ArmSystem.ArmDeployerDown(ArmDeployerRunSpeed); }
-  else if ((controller.getXButton() || Constants.shuffleButtons.dartIn) && dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() > 10)) {
+  else if ((controller.getXButton() || Constants.shuffleButtons.dartIn) && dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() > 13)) {
       ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed); }
-  else if ((controller.getXButton() || Constants.shuffleButtons.dartIn) && dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() < 9) && (Constants.ArmConstants.dartPosition.getAsDouble() > 6)) {
-      ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed/2.1); }
-      else if ((controller.getXButton() || Constants.shuffleButtons.dartIn) && dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() < 6)) {
-        ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed/2.5); }
+  else if ((controller.getXButton() || Constants.shuffleButtons.dartIn) && dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() < 13) && (Constants.ArmConstants.dartPosition.getAsDouble() > 7)) {
+      ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed/3.65); }
+      else if ((controller.getXButton() || Constants.shuffleButtons.dartIn) && dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() < 7)) {
+        ArmSystem.ArmDeployerUp(ArmDeployerReverseSpeed/5); }
   else if (!dartLim.get()) {
-      armSystem.ArmDeployController.getEncoder().setPosition(0);
+      ArmSystem.ArmDeployController.getEncoder().setPosition(0);
       ArmSystem.ArmDeployerDown(ArmDeployerRunSpeed/2); }
   else {
       ArmSystem.ArmDeployerStop(); }
@@ -120,14 +116,14 @@ public class RobotContainer {
 
       if (controller.getLeftTriggerAxis() != 0 || Constants.shuffleButtons.clawout)
       {
-          Claw.SetNeo(Constants.TeleOp.CLAW_SPEED/1.5);
+          Claw.SetNeo(Constants.TeleOp.CLAW_SPEED);
 
       }
       else if (controller.getPOV() == 180) {
           Claw.SetNeo(0.125);
       }
-      else if (controller.getPOV() == 0) {
-          Claw.SetNeo(0.15); 
+      else if (controller.getPOV() == 0){
+        Claw.SetNeo(0.15);
       }
       else if (controller.getRightTriggerAxis() == 0 && controller.getLeftTriggerAxis() == 0 && !Constants.shuffleButtons.clawin && !Constants.shuffleButtons.clawout) {
           //Claw.SetNeo(-0.05);

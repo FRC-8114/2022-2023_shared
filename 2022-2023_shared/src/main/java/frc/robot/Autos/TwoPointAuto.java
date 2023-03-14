@@ -9,7 +9,6 @@ import com.pathplanner.lib.PathPlanner;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Autos.driveAuto.DriveTest;
 import frc.robot.subsystems.DriveSystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -31,7 +30,6 @@ public class TwoPointAuto extends SequentialCommandGroup {
       new HighCubePointAuto(),
       Commands.waitSeconds(0.2),
       m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("Blue Path", new PathConstraints(6, 5)), true ),
-      //new DriveTest(),
       new pigSet()
       
       );

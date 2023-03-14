@@ -5,7 +5,7 @@
 package frc.robot.Autos.dartAutos;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.TeleOp;
+import frc.robot.Autos.ConstantsAuto.dartConstantsAuto;
 import frc.robot.subsystems.ArmSystem;
 
 public class DartOutAuto extends CommandBase {
@@ -17,7 +17,7 @@ public class DartOutAuto extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ArmSystem.ArmDeployerDown(TeleOp.ARM_DEPLOYER_INITIAL_RUN_SPEED);
+    ArmSystem.ArmDeployerDown(dartConstantsAuto.dartDownConstantAuto);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

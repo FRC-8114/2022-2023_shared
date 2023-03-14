@@ -4,11 +4,9 @@
 
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
 
 import com.ctre.phoenixpro.hardware.Pigeon2;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class hardwareChecks extends SubsystemBase {

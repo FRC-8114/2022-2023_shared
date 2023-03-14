@@ -4,7 +4,6 @@
 
 package frc.robot.Autos.driveAuto;
 
-import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -14,14 +13,13 @@ import frc.robot.subsystems.hardwareChecks;
 public class balanceCheck extends CommandBase {
   /** Creates a new balanceCheck. */
   boolean realBalance = false;
-  int i = 0;
-  private Pigeon2 pig = new Pigeon2(5,"canivore"); 
+  int i = 0; 
   private DriveSystem m_DriveSystem = new DriveSystem();
   private ChassisSpeeds directions = new ChassisSpeeds();
   public balanceCheck() {
     directions.vxMetersPerSecond = 8.5;
-    directions.vyMetersPerSecond = 0 * -2.5;
-    directions.omegaRadiansPerSecond = 0 * -3;
+    directions.vyMetersPerSecond = 0;
+    directions.omegaRadiansPerSecond = 0;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

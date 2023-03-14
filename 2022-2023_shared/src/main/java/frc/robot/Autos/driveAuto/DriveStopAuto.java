@@ -6,7 +6,6 @@ package frc.robot.Autos.driveAuto;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSystem;
 
 public class DriveStopAuto extends CommandBase {
@@ -14,9 +13,9 @@ public class DriveStopAuto extends CommandBase {
   ChassisSpeeds directions = new ChassisSpeeds();
   private DriveSystem m_DriveSystem = new DriveSystem();
   public DriveStopAuto() {
-        directions.vxMetersPerSecond = 0 * 2.5;
-        directions.vyMetersPerSecond = 0 * -2.5;
-        directions.omegaRadiansPerSecond = 0 * -3;
+        directions.vxMetersPerSecond = 0;
+        directions.vyMetersPerSecond = 0;
+        directions.omegaRadiansPerSecond = 0;
         
   }
 

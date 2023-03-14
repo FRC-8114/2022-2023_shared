@@ -5,7 +5,7 @@
 package frc.robot.Autos.clawAutos;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.Autos.ConstantsAuto.clawConstantsAuto;
 import frc.robot.subsystems.Claw;
 
 public class SetClawForwardAuto extends CommandBase {
@@ -18,7 +18,7 @@ public class SetClawForwardAuto extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Claw.SetNeo(0.2);
+    Claw.SetNeo(clawConstantsAuto.clawForwardConstantAuto);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

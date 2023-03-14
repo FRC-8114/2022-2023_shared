@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import com.ctre.phoenixpro.configs.Slot0Configs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
-import com.ctre.phoenixpro.hardware.Pigeon2;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -35,7 +34,6 @@ public class DriveSystem extends SubsystemBase {
     TalonFXConfiguration talonConfigs = new TalonFXConfiguration();
 
     private static boolean turtleToggle = false;
-    private Pigeon2 pig = new Pigeon2(5, "canivore");
 
     SwerveDriveTrainConstants drivetrain =
             new SwerveDriveTrainConstants().withPigeon2Id(5).withCANbusName("canivore").withTurnKp(5);

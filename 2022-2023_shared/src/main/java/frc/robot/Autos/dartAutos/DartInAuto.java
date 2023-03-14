@@ -7,7 +7,7 @@ package frc.robot.Autos.dartAutos;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.TeleOp;
+import frc.robot.Autos.ConstantsAuto.dartConstantsAuto;
 import frc.robot.subsystems.ArmSystem;
 
 public class DartInAuto extends CommandBase {
@@ -20,21 +20,21 @@ public class DartInAuto extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ArmSystem.ArmDeployerUp(0.25);
+    ArmSystem.ArmDeployerUp(dartConstantsAuto.dartUpConstantAuto);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (RobotContainer.dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() > 10)) {
-      ArmSystem.ArmDeployerUp(0.3); }
+      ArmSystem.ArmDeployerUp(dartConstantsAuto.dartUpConstantAuto1); }
     else if (RobotContainer.dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() < 9) && (Constants.ArmConstants.dartPosition.getAsDouble() > 6)) {
-      ArmSystem.ArmDeployerUp(0.2); }
+      ArmSystem.ArmDeployerUp(dartConstantsAuto.dartUpConstantAuto2); }
       else if (RobotContainer.dartLim.get() && (Constants.ArmConstants.dartPosition.getAsDouble() < 6)) {
-      ArmSystem.ArmDeployerUp(0.15); }
+      ArmSystem.ArmDeployerUp(dartConstantsAuto.dartUpConstantAuto3); }
     else if (!RobotContainer.dartLim.get()) {
-      RobotContainer.armSystem.ArmDeployController.getEncoder().setPosition(0);
-      ArmSystem.ArmDeployerDown(0.1); 
+      ArmSystem.ArmDeployController.getEncoder().setPosition(0);
+      ArmSystem.ArmDeployerDown(dartConstantsAuto.dartDownConstantAuto1); 
       stop = true;
     }
   }

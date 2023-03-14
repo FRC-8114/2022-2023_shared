@@ -6,7 +6,6 @@ package frc.robot.Autos.driveAuto;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSystem;
 
 public class DriveBackwardsAuto extends CommandBase {
@@ -16,8 +15,8 @@ public class DriveBackwardsAuto extends CommandBase {
   public DriveBackwardsAuto(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     directions.vxMetersPerSecond = -(speed);
-    directions.vyMetersPerSecond = 0 * -2.5;
-    directions.omegaRadiansPerSecond = 0 * -3;
+    directions.vyMetersPerSecond = 0;
+    directions.omegaRadiansPerSecond = 0;
   }
 
   // Called when the command is initially scheduled.
