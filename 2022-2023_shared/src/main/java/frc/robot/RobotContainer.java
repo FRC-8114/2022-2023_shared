@@ -79,7 +79,7 @@ public class RobotContainer {
   else if (controller.getYButton() || Constants.shuffleButtons.armUp) {
       ArmSystem.ArmRunnerUp(ArmRunnerReverseSpeed); }
   else {
-      ArmSystem.ArmStop(); }
+      ArmSystem.ArmRunnerDown(.025); }
 
       if (controller.getPOV() == 270){
         limit = true;
