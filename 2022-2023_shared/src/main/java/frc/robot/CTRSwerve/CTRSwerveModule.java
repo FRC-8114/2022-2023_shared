@@ -41,6 +41,8 @@ public class CTRSwerveModule {
 
         TalonFXConfiguration talonConfigs = new TalonFXConfiguration();
 
+        //constants.DriveMotorGains.kP = 65;
+        //constants.DriveMotorGains.kD = 0.7;
         talonConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         talonConfigs.Slot0 = constants.DriveMotorGains;
         talonConfigs.TorqueCurrent.PeakForwardTorqueCurrent = constants.SlipCurrent;

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class hardwareChecks extends SubsystemBase {
   /** Creates a new pigeon2checks. */
-  private static Pigeon2 john = new Pigeon2(5, "canivore");
+  public static Pigeon2 john = new Pigeon2(5, "canivore");
   //private static DigitalInput[] limits = new DigitalInput[2];
   
   public hardwareChecks() {

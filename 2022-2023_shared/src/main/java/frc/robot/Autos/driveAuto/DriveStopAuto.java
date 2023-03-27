@@ -12,19 +12,19 @@ import frc.robot.subsystems.DriveSystem;
 public class DriveStopAuto extends CommandBase {
   /** Creates a new DriveStopAuto. */
   ChassisSpeeds directions = new ChassisSpeeds();
-  private DriveSystem m_DriveSystem = new DriveSystem();
   public DriveStopAuto() {
-        directions.vxMetersPerSecond = 0 * 2.5;
-        directions.vyMetersPerSecond = 0 * -2.5;
-        directions.omegaRadiansPerSecond = 0 * -3;
+    addRequirements(RobotContainer.driveSystem);
+    directions.vxMetersPerSecond = 0 * 2.5;
+    directions.vyMetersPerSecond = 0 * -2.5;
+    directions.omegaRadiansPerSecond = 0 * -3;
         
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_DriveSystem.runRemote(directions);
-    m_DriveSystem.xMe();
+    RobotContainer.driveSystem.runRemote(directions);
+    RobotContainer.driveSystem.xMe();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

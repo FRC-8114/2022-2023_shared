@@ -10,7 +10,7 @@ public class SwerveDriveConstantsCreator {
     /** Wheel radius of the driving wheel in inches */
     public double WheelRadius;
     /** The maximum amount of current the drive motors can apply without slippage */
-    public double SlipCurrent = 600;
+    public double SlipCurrent = 800;
 
     /** The steer motor gains */
     public Slot0Configs SteerMotorGains;

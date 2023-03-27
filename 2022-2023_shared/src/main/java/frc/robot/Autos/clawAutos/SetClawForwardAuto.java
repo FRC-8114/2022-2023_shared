@@ -18,7 +18,7 @@ public class SetClawForwardAuto extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Claw.SetNeo(0.2);
+    Claw.SetNeo(0.22); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.

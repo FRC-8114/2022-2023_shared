@@ -8,18 +8,19 @@ import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.hardwareChecks;
 
 public class balanceCheck extends CommandBase {
   /** Creates a new balanceCheck. */
   boolean realBalance = false;
-  int i = 0;
-  private Pigeon2 pig = new Pigeon2(5,"canivore"); 
-  private DriveSystem m_DriveSystem = new DriveSystem();
+  public static int i = 0;
   private ChassisSpeeds directions = new ChassisSpeeds();
   public balanceCheck() {
-    directions.vxMetersPerSecond = 8.5;
+    addRequirements(RobotContainer.driveSystem);
+    directions.vxMetersPerSecond = 2;
     directions.vyMetersPerSecond = 0 * -2.5;
     directions.omegaRadiansPerSecond = 0 * -3;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,21 +34,23 @@ public class balanceCheck extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (hardwareChecks.rollCheck(-4)) {
-      directions.vxMetersPerSecond = -8.5;
-      m_DriveSystem.runRemote(directions);
+    if (hardwareChecks.rollCheck(-12)) {
+      directions.vxMetersPerSecond = -1.8;
+      RobotContainer.driveSystem.runRemote(directions);
       i = 0;
     }
-    else if (hardwareChecks.rollCheckGreater(4)) {
-      directions.vxMetersPerSecond = 8.5;
-      m_DriveSystem.runRemote(directions);
+    else if (hardwareChecks.rollCheckGreater(12)) {
+      directions.vxMetersPerSecond = 1.8;
+      RobotContainer.driveSystem.runRemote(directions);
       i = 0;
+      //new DriveStopAuto();
+      //i++;
     }
-    else if (hardwareChecks.rollCheckBetween(4, -4)) {
+    else if (hardwareChecks.rollCheckBetween(11.99, -11.99)) {
       new DriveStopAuto();
       i++;
     }
-    else if (i >= 20) {
+    else if (i >= 30) {
       new DriveStopAuto();
       realBalance = true;
     }

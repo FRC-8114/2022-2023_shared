@@ -7,11 +7,13 @@ import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.*;
 import frc.robot.CTRSwerve.CTRSwerveDrivetrain;
 
 public class shuffle extends SubsystemBase {
+    /*
     public ShuffleboardTab controls1 = Shuffleboard.getTab("Controls");
     Pigeon2 pig = new Pigeon2(5, "canivore");
     DoubleSupplier pigyaw = () -> pig.getYaw().getValue();
@@ -35,9 +37,9 @@ public class shuffle extends SubsystemBase {
         = Shuffleboard.getTab("Controls").add("Claw Out", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
     GenericEntry clawIn
         = Shuffleboard.getTab("Controls").add("Claw In", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-
+    */
     public shuffle() {
-        Shuffleboard.getTab("Controls").addDouble("Pigeon Yaw", pigyaw);
+        /*Shuffleboard.getTab("Controls").addDouble("Pigeon Yaw", pigyaw);
         Shuffleboard.getTab("Controls").addDouble("Pigeon Pitch", pigpitch);
         Shuffleboard.getTab("Controls").addDouble("Pigeon Roll", pigroll);
         Shuffleboard.getTab("Controls").add(CTRSwerveDrivetrain.m_field);
@@ -47,14 +49,15 @@ public class shuffle extends SubsystemBase {
         Shuffleboard.getTab("Controls").addDouble("Y Pos", CTRSwerveDrivetrain.PosY);
         Shuffleboard.getTab("Controls").addDouble("Angle", CTRSwerveDrivetrain.Rotation);
         Shuffleboard.getTab("Controls").addDouble("Dart Position", Constants.ArmConstants.dartPosition);
-        Shuffleboard.getTab("Controls").addBoolean("Turtle Toggle State", Constants.shuffleButtons.turtle);
+        Shuffleboard.getTab("Controls").addBoolean("Turtle Toggle State", Constants.shuffleButtons.turtle);*/
     }
     private int i = 0;
     public void periodic() {
+        //System.out.println(RobotContainer.pig.getYaw());
         
-        if (i >= 25) {
-        Shuffleboard.update();
-        Constants.TeleOp.TURTLE_SPEED = turtlespeed.getDouble(10);
+        //if (i >= 25) {
+        //Shuffleboard.update();
+        //Constants.TeleOp.TURTLE_SPEED = turtlespeed.getDouble(10);
         /*Constants.shuffleButtons.armUp = armU.getBoolean(false);
         Constants.shuffleButtons.armDown = armD.getBoolean(false);
         Constants.shuffleButtons.dartOut = dartO.getBoolean(false);
@@ -62,10 +65,11 @@ public class shuffle extends SubsystemBase {
 
         Constants.shuffleButtons.clawin = clawIn.getBoolean(false);
         Constants.shuffleButtons.clawout = clawOut.getBoolean(false);*/
-        i = 0;
-        }
-        else {
-        i++;
-        }
-    }
+        //i = 0;
+        //}
+        //else {
+        //i++;
+        //}
+    } 
 }
+

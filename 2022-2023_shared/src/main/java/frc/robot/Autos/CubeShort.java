@@ -9,31 +9,26 @@ import com.pathplanner.lib.PathPlanner;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Autos.driveAuto.DriveTest;
+import frc.robot.RobotContainer;
+import frc.robot.Autos.Arm.Dart_Autos.HighCubePointAuto;
 import frc.robot.subsystems.DriveSystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TwoPointAuto extends SequentialCommandGroup {
-  /** Creates a new TwoPointAuto. */
+public class CubeShort extends SequentialCommandGroup {
+  /** Creates a new CubeShort. */
   private DriveSystem m_DriveSystem = new DriveSystem();
-  //private double hi = 0.0;
-
-  public TwoPointAuto() {
+  public CubeShort() {
+    //addRequirements(RobotContainer.driveSystem);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-
-
-    
-
     addCommands(
+      new pigSet(0.0),
       new HighCubePointAuto(),
-      Commands.waitSeconds(0.2),
-      m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("Blue Path", new PathConstraints(6, 5)), true ),
-      //new DriveTest(),
-      new pigSet()
-      
-      );
+      Commands.waitSeconds(0.3),
+      m_DriveSystem.followTrajectoryCommand(PathPlanner.loadPath("Blue Path", new PathConstraints(6, 5)), true )
+    );
   }
 }
+

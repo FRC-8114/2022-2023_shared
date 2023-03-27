@@ -11,14 +11,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class pigSet extends CommandBase {
   /** Creates a new pigSet. */
   Pigeon2 pig = new Pigeon2(5, "canivore");
-  public pigSet() {
+  double yaw = 0.0;
+  public pigSet(double yawi) {
+    yaw = yawi;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pig.setYaw(180);
+    pig.setYaw(yaw);
+    System.out.println(pig.getYaw());
   }
 
   // Called every time the scheduler runs while the command is scheduled.

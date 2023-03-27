@@ -25,6 +25,13 @@ import frc.robot.CTRSwerve.*;
 
 public class DriveSystem extends SubsystemBase {
 
+
+    private static DriveSystem driveSystem = new DriveSystem();
+
+    public static DriveSystem getInstance(){
+        return driveSystem;
+    }
+
     String canbusName = "carnivore";
 
     TalonFX m_driveMotor1 = new TalonFX(11, canbusName);
@@ -116,7 +123,7 @@ public class DriveSystem extends SubsystemBase {
     }
 
     public void roboinit() {
-    //    pig.setYaw(0);
+        pig.setYaw(0);
         m_lastTargetAngle = m_drivetrain.getPoseMeters().getRotation();
     }
 
@@ -126,6 +133,10 @@ public class DriveSystem extends SubsystemBase {
 
     public void runRemote(ChassisSpeeds hi) {
         m_drivetrain.driveFieldCentric(hi);
+    }
+
+    public void runFieldRemote(double xSpeed, double ySpeed, Rotation2d angle) {
+        m_drivetrain.driveFullyFieldCentric(xSpeed,ySpeed,angle);
     }
 
     public void xMe() {
